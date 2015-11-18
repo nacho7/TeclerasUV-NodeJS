@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Middleware.md</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <link rel="stylesheet" media="all" href="../doc-style.css" />
+  <script src="../doc-filelist.js"></script>
+  <script>
+    var relativeDir = "../", thisFile = "app\\Middleware.md", defaultSidebar = true;
+  </script>
+  <script src="../doc-script.js"></script>
+</head>
+<body>
+  <div id="sidebar_wrapper">
+    <div id="sidebar_switch">
+      <span class="tree">Files</span>
+      <span class="headings">Headings</span>
+    </div>
+    <div id="tree"></div>
+    <div id="headings">
+      <div class="heading h1">
+        <a href="#funciones%20middleware">funciones middleware</a>
+      </div>
+      <div class="heading h2">
+        <a href="#qu%C3%A9%20es%20un%20middleware">Qué es un middleware</a>
+      </div>
+      <div class="heading h2">
+        <a href="#expressjs%20y%20routers">Expressjs y routers</a>
+      </div>
+      <div class="heading h2">
+        <a href="#c%C3%B3mo%20hacerlos">Cómo hacerlos</a>
+      </div>
+    </div>
+  </div>
+  <div id="sidebar-toggle"></div>
+  <div id="container"><div class="docs markdown">
+<div class="pilwrap" id="funciones%20middleware">
+  <h1>
+    <a href="#funciones%20middleware" name="funciones%20middleware" class="pilcrow">&#182;</a>
+    funciones middleware
+  </h1>
+</div>
+
+
+
+<div class="pilwrap" id="qu%C3%A9%20es%20un%20middleware">
+  <h2>
+    <a href="#qu%C3%A9%20es%20un%20middleware" name="qu%C3%A9%20es%20un%20middleware" class="pilcrow">&#182;</a>
+    Qué es un middleware
+  </h2>
+</div>
+
+
+<p>Es un software que está en el medio de otros programas.</p>
+
+
+<div class="pilwrap" id="expressjs%20y%20routers">
+  <h2>
+    <a href="#expressjs%20y%20routers" name="expressjs%20y%20routers" class="pilcrow">&#182;</a>
+    Expressjs y routers
+  </h2>
+</div>
+
+
+<p>una función middleware, en un router, cumple la función de ejecutarse antes que el resto, y sirve para validaciones generales o particulares, ejemplo: control de sesión, validar ciertas cosas comunes a varias páginas, entre muchas otras funcionalidades que se les pueda ocurrir.</p>
+
+<p>Para pasar a la siguiente función, si se quiere, se usa la función next(), y pueden haber tantas funciones middleware como se desee.</p>
+
+
+<div class="pilwrap" id="c%C3%B3mo%20hacerlos">
+  <h2>
+    <a href="#c%C3%B3mo%20hacerlos" name="c%C3%B3mo%20hacerlos" class="pilcrow">&#182;</a>
+    Cómo hacerlos
+  </h2>
+</div>
+
+
+<p>Un ejemplo es mejor que nada:</p>
+
+
+<div class="highlight"><pre><code><span class="nx">router</span><span class="p">.</span><span class="nx">post</span><span class="p">(</span><span class="s1">&#39;/miruta&#39;</span><span class="p">,</span> <span class="nx">funcion1</span><span class="p">,</span> <span class="nx">funcion2</span><span class="p">);</span>
+<span class="kd">function</span> <span class="nx">funcion1</span><span class="p">(</span><span class="nx">req</span><span class="p">,</span> <span class="nx">res</span><span class="p">,</span> <span class="nx">next</span><span class="p">){</span> <span class="nx">algo</span><span class="p">}</span>
+<span class="c1">//los nombres pueden ser cualquiera xD si quieren les ponen nombres tránfugos, pero no les aceptaré el pull request.</span>
+<span class="kd">function</span> <span class="nx">funcion1</span><span class="p">(</span><span class="nx">request</span><span class="p">,</span> <span class="nx">response</span><span class="p">,</span> <span class="nx">next</span><span class="p">){</span> <span class="nx">algo</span><span class="p">}</span>
+</code></pre></div>
+
+
+
+<p>También pueden estar en duro (puestas una detrás de la otra).</p></div>
+  </div>
+</body>
+</html>

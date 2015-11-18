@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Modelos.md</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <link rel="stylesheet" media="all" href="../doc-style.css" />
+  <script src="../doc-filelist.js"></script>
+  <script>
+    var relativeDir = "../", thisFile = "app\\Modelos.md", defaultSidebar = true;
+  </script>
+  <script src="../doc-script.js"></script>
+</head>
+<body>
+  <div id="sidebar_wrapper">
+    <div id="sidebar_switch">
+      <span class="tree">Files</span>
+      <span class="headings">Headings</span>
+    </div>
+    <div id="tree"></div>
+    <div id="headings">
+      <div class="heading h1">
+        <a href="#modelos">Modelos</a>
+      </div>
+      <div class="heading h2">
+        <a href="#c%C3%B3mo%20generarlos">Cómo generarlos</a>
+      </div>
+      <div class="heading h2">
+        <a href="#c%C3%B3mo%20hacer%20sql">Cómo hacer sql</a>
+      </div>
+    </div>
+  </div>
+  <div id="sidebar-toggle"></div>
+  <div id="container"><div class="docs markdown">
+<div class="pilwrap" id="modelos">
+  <h1>
+    <a href="#modelos" name="modelos" class="pilcrow">&#182;</a>
+    Modelos
+  </h1>
+</div>
+
+
+<p>Para los modelos, se usa Sequelize, que es un ORM (Mapeo relacional-objeto), que soporta mysql, postgres, mariadb, sqlite, y mssql.</p>
+
+
+<div class="pilwrap" id="c%C3%B3mo%20generarlos">
+  <h2>
+    <a href="#c%C3%B3mo%20generarlos" name="c%C3%B3mo%20generarlos" class="pilcrow">&#182;</a>
+    Cómo generarlos
+  </h2>
+</div>
+
+
+<p>Para generarlos, se debe hacer lo siguiente:</p>
+
+<p><code>npm install -g sequelize-auto</code></p>
+
+<p>Leer documentación de sequelize auto y correr el comando correspondiente.</p>
+
+<p>A la fecha, no creaba las claves foráneas, yo reparé ese error (fueron 3 líneas), ya lo mezclaron, pero no sé cuándo actualicen la versión en nodejs. Por lo que mientras tanto yo tengo la versión parcheada solamente.</p>
+
+<p>El generador no crea las asociaciones (ver app/models/index.js), así que hay que crearlas a mano. Pero sin las referencias, es más latoso, ya que hay que escribirlas a mano cada vez.</p>
+
+
+<div class="pilwrap" id="c%C3%B3mo%20hacer%20sql">
+  <h2>
+    <a href="#c%C3%B3mo%20hacer%20sql" name="c%C3%B3mo%20hacer%20sql" class="pilcrow">&#182;</a>
+    Cómo hacer sql
+  </h2>
+</div>
+
+
+<p>Ver documentación en la página. Es muy buena :D</p></div>
+  </div>
+</body>
+</html>

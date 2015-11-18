@@ -1,0 +1,34 @@
+<% include header %>
+
+<%if(typeof asignatura != 'undefined' && typeof asignatura.id != 'undefined'){%>
+
+<form action="/admin/administrar_asignatura" class="" method="post">
+  <%=asignatura.id%>
+  <input name="id" type="hidden" value="<%=asignatura.id%>">
+  <br>
+  <label for="nombre">Nombre:</label>
+  <input id="nombre" name="nombre" type="text" value="<%=asignatura.nombre%>">
+  <br>
+  <label for="codigo">Código:</label>
+  <input id="codigo" name="codigo" type="text" value="<%=asignatura.codigo%>">
+  <br>
+  seleccione la opcion:
+  <input id="volver" name="opcion" required type="radio" value="volver">
+  <label for="volver">Volver al menú principal</label>
+  <br>
+  <input id="modificar" name="opcion" required type="radio" value="modificar">
+  <label for="modificar">Modificar</label>
+  <br>
+  <input id="eliminar" name="opcion" required type="radio" value="eliminar">
+  <label for="eliminar">Eliminar</label>
+  <br>
+  <input name="submit" type="submit" value="Submit">
+</form>
+<%}else{%>
+  <script type="text/javascript">
+    window.location="/docente/menu";
+  </script>
+<%}%>
+
+<% include linkmenudocente %>
+<% include footer %>

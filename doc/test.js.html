@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>test.js</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <link rel="stylesheet" media="all" href="doc-style.css" />
+  <script src="doc-filelist.js"></script>
+  <script>
+    var relativeDir = "", thisFile = "test.js", defaultSidebar = true;
+  </script>
+  <script src="doc-script.js"></script>
+</head>
+<body>
+  <div id="sidebar_wrapper">
+    <div id="sidebar_switch">
+      <span class="tree">Files</span>
+      <span class="headings">Headings</span>
+    </div>
+    <div id="tree"></div>
+    <div id="headings">
+    </div>
+  </div>
+  <div id="sidebar-toggle"></div>
+  <div id="container"><div class="background highlight"></div>
+<table cellpadding="0" cellspacing="0">
+  <tbody>
+      <tr>
+        <td class="docs">
+          <h1>test.js</h1>
+        </td>
+        <td class="code highlight"></td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-1" id="section-1">&#182;</a>
+</div>
+
+        </td>
+        <td class="code highlight"><div class="highlight"><pre><span class="cm">/*Actualmente este test no funciona*/</span>
+
+<span class="kd">var</span> <span class="nx">tasks</span> <span class="o">=</span> <span class="nb">Object</span><span class="p">.</span><span class="nx">keys</span><span class="p">(</span><span class="nx">require</span><span class="p">(</span><span class="s1">&#39;gulp&#39;</span><span class="p">).</span><span class="nx">tasks</span><span class="p">),</span>
+  <span class="nx">connect</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;gulp-connect&#39;</span><span class="p">),</span>
+  <span class="nx">port</span> <span class="o">=</span> <span class="mi">3000</span><span class="p">,</span>
+  <span class="nx">server</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;./app.js&#39;</span><span class="p">),</span>
+  <span class="nx">request</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;supertest&#39;</span><span class="p">),</span>
+  <span class="nx">should</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;should&#39;</span><span class="p">);</span>
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-2" id="section-2">&#182;</a>
+</div>
+<p>request = require('superagent'),
+expect = require('chai').expect;
+console.log(expect);
+var app;</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+<span class="kd">var</span> <span class="nx">Cookies</span><span class="p">;</span>
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-3" id="section-3">&#182;</a>
+</div>
+<p>app = server();
+console.log(app);
+console.log(server);</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+<span class="kd">var</span> <span class="nx">miserver</span><span class="p">;</span>
+<span class="nx">server</span><span class="p">.</span><span class="nx">run</span><span class="p">();</span>
+<span class="kd">var</span> <span class="nx">app</span> <span class="o">=</span> <span class="nx">server</span><span class="p">.</span><span class="nx">miapp</span><span class="p">;</span>
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-4" id="section-4">&#182;</a>
+</div>
+<p>console.log(tasks);</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+
+<span class="nx">describe</span><span class="p">(</span><span class="s1">&#39;Functional Test &lt;Sessions&gt;:&#39;</span><span class="p">,</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+  <span class="nx">it</span><span class="p">(</span><span class="s1">&#39;should create user session for valid user&#39;</span><span class="p">,</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">done</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">timeout</span><span class="p">(</span><span class="mi">5000</span><span class="p">);</span>
+    <span class="nx">setTimeout</span><span class="p">(</span><span class="nx">done</span><span class="p">,</span> <span class="mi">5000</span><span class="p">);</span>
+    <span class="nx">request</span><span class="p">(</span><span class="nx">app</span><span class="p">)</span>
+      <span class="p">.</span><span class="nx">post</span><span class="p">(</span><span class="s1">&#39;localhost:3000/login&#39;</span><span class="p">)</span>
+      <span class="p">.</span><span class="nx">set</span><span class="p">(</span><span class="s1">&#39;Accept&#39;</span><span class="p">,</span><span class="s1">&#39;application/json&#39;</span><span class="p">)</span>
+      <span class="p">.</span><span class="nx">send</span><span class="p">({</span><span class="s2">&quot;rut&quot;</span><span class="o">:</span> <span class="s2">&quot;18104510&quot;</span><span class="p">,</span> <span class="s2">&quot;contrasena&quot;</span><span class="o">:</span> <span class="s2">&quot;teclerasuv&quot;</span><span class="p">})</span>
+      <span class="p">.</span><span class="nx">expect</span><span class="p">(</span><span class="s1">&#39;Content-Type&#39;</span><span class="p">,</span> <span class="sr">/json/</span><span class="p">)</span>
+      <span class="p">.</span><span class="nx">expect</span><span class="p">(</span><span class="mi">200</span><span class="p">,</span> <span class="nx">done</span><span class="p">)</span>
+      <span class="p">.</span><span class="nx">end</span><span class="p">(</span><span class="kd">function</span> <span class="p">(</span><span class="nx">err</span><span class="p">,</span> <span class="nx">res</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">if</span><span class="p">(</span><span class="nx">err</span><span class="p">){</span><span class="k">return</span> <span class="nx">done</span><span class="p">(</span><span class="nx">err</span><span class="p">)};</span>
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-5" id="section-5">&#182;</a>
+</div>
+<p>res.body.id.should.equal('1');
+res.body.short_name.should.equal('Test user');
+res.body.email.should.equal('<a href='mailto:user_test@example.com'>user_test@example.com</a>');
+Save the cookie to use it later to retrieve the session</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+        <span class="nx">Cookies</span> <span class="o">=</span> <span class="nx">res</span><span class="p">.</span><span class="nx">headers</span><span class="p">[</span><span class="s1">&#39;set-cookie&#39;</span><span class="p">].</span><span class="nx">pop</span><span class="p">().</span><span class="nx">split</span><span class="p">(</span><span class="s1">&#39;;&#39;</span><span class="p">)[</span><span class="mi">0</span><span class="p">];</span>
+        <span class="nx">done</span><span class="p">();</span>
+      <span class="p">});</span>
+  <span class="p">});</span>
+  <span class="nx">it</span><span class="p">(</span><span class="s1">&#39;should get user session for current user&#39;</span><span class="p">,</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">done</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">timeout</span><span class="p">(</span><span class="mi">5000</span><span class="p">);</span>
+    <span class="nx">setTimeout</span><span class="p">(</span><span class="nx">done</span><span class="p">,</span> <span class="mi">5000</span><span class="p">);</span>
+    <span class="kd">var</span> <span class="nx">req</span> <span class="o">=</span> <span class="nx">request</span><span class="p">(</span><span class="nx">app</span><span class="p">).</span><span class="nx">get</span><span class="p">(</span><span class="s1">&#39;localhost:3000/menu&#39;</span><span class="p">);</span>
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-6" id="section-6">&#182;</a>
+</div>
+<p>Set cookie to get saved user session</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+    <span class="nx">req</span><span class="p">.</span><span class="nx">cookies</span> <span class="o">=</span> <span class="nx">Cookies</span><span class="p">;</span>
+    <span class="nx">req</span><span class="p">.</span><span class="nx">set</span><span class="p">(</span><span class="s1">&#39;Accept&#39;</span><span class="p">,</span><span class="s1">&#39;application/json&#39;</span><span class="p">)</span>
+      <span class="p">.</span><span class="nx">expect</span><span class="p">(</span><span class="s1">&#39;Content-Type&#39;</span><span class="p">,</span> <span class="sr">/json/</span><span class="p">)</span>
+      <span class="p">.</span><span class="nx">expect</span><span class="p">(</span><span class="mi">200</span><span class="p">)</span>
+      <span class="p">.</span><span class="nx">end</span><span class="p">(</span><span class="kd">function</span> <span class="p">(</span><span class="nx">err</span><span class="p">,</span> <span class="nx">res</span><span class="p">)</span> <span class="p">{</span>
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-7" id="section-7">&#182;</a>
+</div>
+<p>res.body.id.should.equal('1');
+res.body.short_name.should.equal('Test user');
+res.body.email.should.equal('<a href='mailto:user_test@example.com'>user_test@example.com</a>');</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+        <span class="k">if</span><span class="p">(</span><span class="nx">err</span><span class="p">){</span><span class="k">return</span> <span class="nx">done</span><span class="p">(</span><span class="nx">err</span><span class="p">)};</span>
+        <span class="nx">done</span><span class="p">();</span>
+      <span class="p">});</span>
+  <span class="p">});</span>
+  <span class="nx">after</span><span class="p">(</span><span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+    <span class="nx">app</span><span class="p">.</span><span class="nx">close</span><span class="p">();</span>
+  <span class="p">});</span>
+<span class="p">});</span>
+
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-8" id="section-8">&#182;</a>
+</div>
+<div class="dox">
+  <div class="summary">
+  </div>
+  <div class="body"><p>describe('test/', function() {</p>
+
+<p>it('should homepage respond to GET', function(done) {
+this.timeout(20000);
+setTimeout(done, 20000);
+request
+.get('<a href='http://localhost:3000'>http://localhost:3000</a>')
+.end(function(err, res) {
+console.log("termino /");
+expect(res).to.exist;
+expect(res.status).to.equal(200);
+console.log("lo logramos /");
+done();
+})</p>
+
+<p>})
+after(function() {
+console.log("cerrando");
+return
+app.close();
+});
+});
+describe('testcompleto', function() {
+it('should send user and pass', function(done) {
+this.timeout(20000);
+setTimeout(done, 20000);
+request
+.post('<a href='http://localhost:3000/login'>http://localhost:3000/login</a>')
+.send({
+rut: '18104510',
+contrasena: "teclerasuv"
+})
+.end(function(err, res) {
+console.log("termino de enviar post");
+expect(res).to.exist;
+expect(res.status).to.equal(200);
+console.log("lo logramos send user");
+done();</p>
+
+<p>})</p>
+
+<p>})
+after(function() {
+console.log("cerrando");
+return
+app.close();
+});
+});  </p>
+  </div>
+</div>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+</pre></div>
+        </td>
+      </tr>
+  </tbody>
+</table>
+  </div>
+</body>
+</html>

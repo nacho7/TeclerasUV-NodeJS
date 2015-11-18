@@ -1,0 +1,27 @@
+<% include header %>
+
+
+<form action="/login" class="" method="post">
+  <div class="row form-group form-group-md row-centered">
+    <div class="col-sm-12 col-md-8 col-lg-6 col-centered">
+      <input type="radio" name="docoest" value="docente" required> Soy Docente
+      <br>
+      <input type="radio" name="docoest" value="estudiante" required> Soy Estudiante
+      <br>
+      Ingrese su correo electrónico.
+      <input class="form-control" name="email" required type="email" value="">
+      <br>
+      Ingrese su contraseña:
+      <br>
+      <input class="form-control" name="contrasena" required type="password" value="">
+      <br>
+      <input class="form-control" name="name" type="submit" value="Ingresar">
+      Si no tiene cuenta, puede
+      <a href="/estudiante/registro">Registrarse Estudiante</a>
+      <br>
+      <a href="/docente/registro">Registrarse docente</a>
+    </div>
+  </div>
+</form>
+
+<% include footer %>

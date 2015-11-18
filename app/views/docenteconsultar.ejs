@@ -1,0 +1,67 @@
+<% include header %>
+
+<!-- for datos -->
+<%for(i in datos){%>
+  nombre:
+  <br>
+  <%=datos[i].nombre%>
+  <br>
+  Apellido:
+  <%=datos[i].apellido%>
+  <br>
+<%}%>
+<br>
+<br>
+Asignaturas:
+<form action="/admin/administrar_asignatura" class="" method="get">
+
+  <%for(i in asignaturas){%>
+    <hr>
+    <div class="row row-centered">
+      <div class="col-md-4 col-centered">
+        Asignatura
+      </div>
+      <div class="col-md-2 col-centered">
+        Ver datos
+      </div>
+      <div class="col-md-2 col-centered">
+        Realizar Pregunta
+      </div>
+      <div class="col-md-2 col-centered">
+        Gestionar Pregunta
+      </div>
+      <div class="col-md-2 col-centered">
+        Analizar Pregunta
+      </div>
+    </div>
+    <div class="row row-centered">
+      <div class="col-md-4">
+        <%=asignaturas[i].id%>
+        <br>
+        Nombre:
+        <%=asignaturas[i].nombre%>
+        Codigo:
+        <%=asignaturas[i].codigo%>
+        <br>
+        <input class="form-control" type="radio" name="idasignatura" value="<%=asignaturas[i].id%>">
+      </div>
+      <div class="col-md-2">
+        <a href='/consultaruno/<%=asignaturas[i].id%>'>Ver datos</a>
+      </div>
+      <div class="col-md-2">
+        <a href='/docente/realizar/<%=asignaturas[i].id%>'>Realizar pregunta</a>
+      </div>
+      <div class="col-md-2">
+        <a href='/docente/gestionar/<%=asignaturas[i].id%>'>Gestionar pregunta</a>
+      </div>
+      <div class="col-md-2">
+        <a href="/docente/analizar/<%=asignaturas[i].id%>">Analizar Preguntas</a>
+      </div>
+    </div>
+    <br>
+    <hr>
+  <%}%>
+  <input class="form-control" name="name" type="submit" value="Ir a la asignatura seleccionada">
+</form>
+<% include linkmenudocente %>
+<% include footer %>

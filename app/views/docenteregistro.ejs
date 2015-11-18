@@ -1,0 +1,14 @@
+<% include header %>
+
+<%if(error){%>
+  <script type="text/javascript">
+    alert("error de", <%=error%>);
+  </script>
+<%}%>
+
+Registro:
+<form action="/docente/registro" class="" method="post">
+  <% include registrogeneral %>
+</form>
+
+<% include footer %>

@@ -1,0 +1,44 @@
+<% include header %>
+
+Asignaturas:
+  <%for(i in asignaturas){%>
+    <hr>
+    <div class="row row-centered">
+      <div class="col-md-4 col-centered">
+        Asignatura
+      </div>
+      <div class="col-md-2 col-centered">
+        Ver datos
+      </div>
+      <div class="col-md-2 col-centered">
+        Responder Pregunta
+      </div>
+      <div class="col-md-2 col-centered">
+        Analizar Pregunta
+      </div>
+    </div>
+    <div class="row row-centered">
+      <div class="col-md-4 col-centered">
+        <%=asignaturas[i].id%>
+        <br>
+        Nombre:
+        <%=asignaturas[i].nombre%>
+        Codigo:
+        <%=asignaturas[i].codigo%>
+        <br>
+      </div>
+      <div class="col-md-2 col-centered">
+        <a href='/consultaruno/<%=asignaturas[i].id%>'>Ver datos</a>
+      </div>
+      <div class="col-md-2 col-centered">
+        <a href='/estudiante/responder/<%=asignaturas[i].id%>'>responder pregunta</a>
+      </div>
+      <div class="col-md-2 col-centered">
+        <a href="/estudiante/analizar/<%=asignaturas[i].id%>">Analizar Preguntas</a>
+      </div>
+    </div>
+    <br>
+    <hr>
+  <%}%>
+<% include linkmenuestudiante %>
+<% include footer %>

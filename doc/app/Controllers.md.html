@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Controllers.md</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <link rel="stylesheet" media="all" href="../doc-style.css" />
+  <script src="../doc-filelist.js"></script>
+  <script>
+    var relativeDir = "../", thisFile = "app\\Controllers.md", defaultSidebar = true;
+  </script>
+  <script src="../doc-script.js"></script>
+</head>
+<body>
+  <div id="sidebar_wrapper">
+    <div id="sidebar_switch">
+      <span class="tree">Files</span>
+      <span class="headings">Headings</span>
+    </div>
+    <div id="tree"></div>
+    <div id="headings">
+      <div class="heading h1">
+        <a href="#controladores">Controladores</a>
+      </div>
+      <div class="heading h1">
+        <a href="#get">GET</a>
+      </div>
+      <div class="heading h2">
+        <a href="#recibir%20datos">Recibir datos</a>
+      </div>
+      <div class="heading h3">
+        <a href="#request.query">request.query</a>
+      </div>
+      <div class="heading h3">
+        <a href="#request.params">request.params</a>
+      </div>
+      <div class="heading h1">
+        <a href="#post">POST</a>
+      </div>
+      <div class="heading h2">
+        <a href="#recibir%20datos">Recibir datos</a>
+      </div>
+      <div class="heading h3">
+        <a href="#request.body">request.body</a>
+      </div>
+      <div class="heading h1">
+        <a href="#formularios">Formularios</a>
+      </div>
+    </div>
+  </div>
+  <div id="sidebar-toggle"></div>
+  <div id="container"><div class="docs markdown">
+<div class="pilwrap" id="controladores">
+  <h1>
+    <a href="#controladores" name="controladores" class="pilcrow">&#182;</a>
+    Controladores
+  </h1>
+</div>
+
+
+<p>Van en la carpeta controllers dentro de app.</p>
+
+<p>No pongas otro tipo de archivos ahí, que no sean controllers, debido a que config/express.js fallará en encontrarlos automáticamente.</p>
+
+<p>Existen de dos tipos:</p>
+
+
+<div class="pilwrap" id="get">
+  <h1>
+    <a href="#get" name="get" class="pilcrow">&#182;</a>
+    GET
+  </h1>
+</div>
+
+
+<p>Cuando se carga una página en el navegador, se llama a este método por defecto.</p>
+
+
+<div class="pilwrap" id="recibir%20datos">
+  <h2>
+    <a href="#recibir%20datos" name="recibir%20datos" class="pilcrow">&#182;</a>
+    Recibir datos
+  </h2>
+</div>
+
+
+<p>Para recibir datos, se puede de dos formas, que no son excluyentes (pueden estar ambas)</p>
+
+
+<div class="pilwrap" id="request.query">
+  <h3>
+    <a href="#request.query" name="request.query" class="pilcrow">&#182;</a>
+    request.query
+  </h3>
+</div>
+
+
+<p>es cuando la página es de la forma</p>
+
+<div class='highlight'><pre><code language=''>mipagina?var1=20&amp;var2=soy+erick
+</code></pre></div>
+
+<p>Ejemplo:</p>
+
+<div class='highlight'><pre><code language=''>www.youtube.com/watch?video=algo
+</code></pre></div>
+
+<p>se reciben en el objeto: request.query, y no se declaran en ninguna parte, por lo que pueden venir tantos y de la forma que se le ocurra al niño chico que ingresa valores, y la página no se caerá ni le pasará nada, pero si faltan, y los estás usando, se puede caer D: ahí caen las validaciones infinitas DDD:</p>
+
+
+<div class="highlight"><pre><code><span class="k">if</span><span class="p">(</span><span class="nx">request</span><span class="p">.</span><span class="nx">query</span><span class="p">.</span><span class="nx">mivar1</span> <span class="o">&amp;&amp;</span> <span class="nx">request</span><span class="p">.</span><span class="nx">query</span><span class="p">.</span><span class="nx">mivar2</span><span class="p">){}</span>
+</code></pre></div>
+
+
+
+
+<div class="pilwrap" id="request.params">
+  <h3>
+    <a href="#request.params" name="request.params" class="pilcrow">&#182;</a>
+    request.params
+  </h3>
+</div>
+
+
+<p>es cuando la página es de la forma</p>
+
+<div class='highlight'><pre><code language=''>mipagina/1/soy+erick
+</code></pre></div>
+
+<p>Ejemplo:</p>
+
+<div class='highlight'><pre><code language=''>www.youtube.com/watch/video/algo
+</code></pre></div>
+
+<p>Estos se declaran en el router, de la forma:</p>
+
+<div class='highlight'><pre><code language=''>mipagina/:mivar1/:mivar2
+</code></pre></div>
+
+<p>y se leen como:</p>
+
+
+<div class="highlight"><pre><code><span class="nx">request</span><span class="p">.</span><span class="nx">params</span><span class="p">.</span><span class="nx">mivar1</span>
+</code></pre></div>
+
+
+
+
+<div class="pilwrap" id="post">
+  <h1>
+    <a href="#post" name="post" class="pilcrow">&#182;</a>
+    POST
+  </h1>
+</div>
+
+
+
+<div class="pilwrap" id="recibir%20datos_1">
+  <h2>
+    <a href="#recibir%20datos_1" name="recibir%20datos_1" class="pilcrow">&#182;</a>
+    Recibir datos
+  </h2>
+</div>
+
+
+<p>Para recibir datos en un post sólo hay una forma, y es con request.body, toma los valores de un formulario según el campo name.</p>
+
+
+<div class="pilwrap" id="request.body">
+  <h3>
+    <a href="#request.body" name="request.body" class="pilcrow">&#182;</a>
+    request.body
+  </h3>
+</div>
+
+
+<p>Estos valores pasan "por debajo", y el usuario nunca los ve. En realidad pasan en los headers de la página, y si la página pasa "limpia", el usuario con las herramientas de los navegadores modernos los puede ver. Para evitar eso hay que usar https, y así pasan encriptados.</p>
+
+
+<div class="pilwrap" id="formularios">
+  <h1>
+    <a href="#formularios" name="formularios" class="pilcrow">&#182;</a>
+    Formularios
+  </h1>
+</div>
+
+
+<p>Los formularios que usen el method="GET", llaman al método get del controlador que tenga la misma ruta que la definida en action, pero con los parámetros en request.query</p>
+
+<p>Ejemplo:</p>
+
+<p>Página:</p>
+
+
+<div class="highlight"><pre><code><span class="nt">&lt;form</span> <span class="na">action=</span><span class="s">&quot;miruta&quot;</span> <span class="na">method=</span><span class="s">&quot;GET&quot;</span><span class="nt">&gt;</span>
+  <span class="nt">&lt;input</span> <span class="na">type =</span><span class="s">&quot;text&quot;</span> <span class="na">name=</span><span class="s">&quot;mivar1&quot;</span> <span class="na">value=</span><span class="s">&quot;Elvalor, esto debe estar entre comillas siempre, y no se reemplaza si es texto o passowrd, etc&quot;</span><span class="nt">&gt;</span>
+  <span class="nt">&lt;input</span> <span class="na">type =</span><span class="s">&quot;hidden&quot;</span> <span class="na">name=</span><span class="s">&quot;mihidden&quot;</span> <span class="na">value=</span><span class="s">&quot;oculto&quot;</span><span class="nt">&gt;</span>
+<span class="nt">&lt;/form&gt;</span>
+</code></pre></div>
+
+
+
+<p>Controller:</p>
+
+
+<div class="highlight"><pre><code><span class="nx">router</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="s1">&#39;/miruta&#39;</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">req</span><span class="p">,</span> <span class="nx">res</span><span class="p">,</span> <span class="nx">next</span><span class="p">){</span>
+  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">req</span><span class="p">.</span><span class="nx">query</span><span class="p">);</span>
+  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">req</span><span class="p">.</span><span class="nx">query</span><span class="p">.</span><span class="nx">mivar1</span><span class="p">);</span> <span class="c1">//texo gigante, o el texto ingresado por el usuario</span>
+  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">req</span><span class="p">.</span><span class="nx">query</span><span class="p">.</span><span class="nx">mihidden</span><span class="p">);</span> <span class="c1">//oculto, sirve para pasar variables de un lado a otro, no lo implementé acá.</span>
+  <span class="p">})</span>
+</code></pre></div>
+
+</div>
+  </div>
+</body>
+</html>

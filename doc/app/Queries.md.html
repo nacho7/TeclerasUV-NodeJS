@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Queries.md</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <link rel="stylesheet" media="all" href="../doc-style.css" />
+  <script src="../doc-filelist.js"></script>
+  <script>
+    var relativeDir = "../", thisFile = "app\\Queries.md", defaultSidebar = true;
+  </script>
+  <script src="../doc-script.js"></script>
+</head>
+<body>
+  <div id="sidebar_wrapper">
+    <div id="sidebar_switch">
+      <span class="tree">Files</span>
+      <span class="headings">Headings</span>
+    </div>
+    <div id="tree"></div>
+    <div id="headings">
+      <div class="heading h1">
+        <a href="#queries">Queries</a>
+      </div>
+    </div>
+  </div>
+  <div id="sidebar-toggle"></div>
+  <div id="container"><div class="docs markdown">
+<div class="pilwrap" id="queries">
+  <h1>
+    <a href="#queries" name="queries" class="pilcrow">&#182;</a>
+    Queries
+  </h1>
+</div>
+
+
+<p>Las consultas no deberían ir en el controlador, pero si se ponen en el modelo, el controlador tiene pleno acceso a todos los modelos, y puede hacer una barbaridad.</p>
+
+<p>Para separar al controlador del modelo, y para que "no se conozcan", es que creé la capa intermedia queries.</p>
+
+<p>Además hice un namespace, para el que le de flojera importar cada uno de los archivos que necesita xD Aunque esto no es tan buen patrón de diseño la verdad...</p></div>
+  </div>
+</body>
+</html>

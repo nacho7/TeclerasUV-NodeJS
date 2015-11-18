@@ -1,0 +1,21 @@
+<% include header %>
+
+<%if(typeof asignatura != 'undefined' && typeof asignatura.id != 'undefined'){%>
+<hr>
+nombre:
+<br>
+<%=asignatura.id%>
+<br>
+Nombre:
+<%=asignatura.nombre%>
+Codigo:
+<%=asignatura.codigo%>
+<br>
+<hr>
+<%}else{%>
+  <script type="text/javascript">
+    window.location="/menu";
+  </script>
+<%}%>
+
+<% include footer %>
