@@ -1,0 +1,57 @@
+<% include header %>
+<h1>Crear Pregunta Alternativa</h1>
+ <br><br>
+<form>
+  Nombre pregunta: <input type="text" name="nombrePregunta">
+  
+ <br><br>
+
+  Pregunta: <div class="col-xs-3">
+  <textarea class="form-control" rows="2" name="pregunta"></textarea>
+  </div>
+  <br><br><br>
+  Imagen <input type="text" name="imagen">
+  <br><br>
+  Video <input type="text" name="video">
+  <br><br>
+ 	<table border="2px"> <!-- Lo cambiaremos por CSS -->
+           <tr>
+              <td> Respuesta </td>
+              <td> Correcta </td>
+              <td> Seleccionar </td>
+          </tr>
+          <tr>
+              <td>220</td>
+              <td><input name="correcto" type="checkbox" checked="checked" /></td>
+              <td><input name="seleccionar" type="checkbox" checked="checked" /></td>
+          </tr>
+          <tr>
+              <td>2212110</td>
+              <td><input name="correcto" type="checkbox" checked="checked" /></td>
+              <td><input name="seleccionar" type="checkbox" checked="checked" /></td>
+          </tr>
+          <tr>
+              <td>22210</td>
+              <td><input name="correcto" type="checkbox" checked="checked" /></td>
+              <td><input name="seleccionar" type="checkbox" checked="checked" /></td>
+          </tr>
+        </table>
+        <button type="button">Agregar</button>
+        <button type="button">Editar</button>
+        <button type="button">Quitar</button>
+        <br><br>
+        
+        Explicacion respuesta correcta:<br>
+        <div class="col-xs-3">
+        <textarea class="form-control" rows="3" name="respuesta"></textarea>
+        </div>
+        <br><br><br><br><br>
+    
+        Imagen <input type="text" name="imagen2">
+        <br><br>
+        <button type="button">Volver</button>
+        <input type="submit" value="Crear"> 
+</form>
+
+
+<% include footer %>

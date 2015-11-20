@@ -12,8 +12,8 @@ module.exports = function(app) {
   }));
   app.use('/', router);
 
-  router.get('/docente/crearpregunta', auth_docente, function(request, response, next) {
+  router.get('/docente/crearpreguntadicotomica', auth_docente, function(request, response, next) {
     console.log("id usuario:",request.session.name, "tipo:", request.session.tipo);
-    response.render('docentecrearpregunta', {});
+    response.render('docentecrearpreguntadicotomica', {});
   });
 }
