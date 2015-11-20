@@ -12,7 +12,7 @@ module.exports = function(app) {
   }));
   app.use('/', router);
 
-  router.get('/docente/editarpregunta/likert', auth_docente, function(request, response, next) {
+  router.get('/docente/editarpreguntalikert', auth_docente, function(request, response, next) {
     response.render('docenteeditarpreguntalikert', {});
   });
 }

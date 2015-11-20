@@ -12,7 +12,8 @@ module.exports = function(app) {
   }));
   app.use('/', router);
 
-  router.get('/docente/crearpregunta/likert', auth_docente, function(request, response, next) {
+  router.get('/docente/crearpreguntalikert', auth_docente, function(request, response, next) {
+    console.log("id usuario:",request.session.name, "tipo:", request.session.tipo);
     response.render('docentecrearpreguntalikert', {});
   });
 }
