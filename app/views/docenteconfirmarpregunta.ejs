@@ -6,8 +6,9 @@
 
     <h3>Pregunta de tipo :<%=tipo%> </h3>
     <br>
+
     <h3><%=preguntas[0].nombre%></h3>
-    
+
     <% if(preguntas[0].tipo=='1'){ %>
 
           <%for(i in preguntas){%>
@@ -30,10 +31,10 @@
     <h3> Correcta: <%=correcta%></h3>
     <br>
 
-    
+    <%=preguntas[0].pmid%>/<%=codigo%>
     <br>
     <div align= "center">
-      <a  href='/docente/realizar/<%=codigo%>/<%=preguntas[0].id%>' type="button" class="btn btn-primary" >Enviar pregunta</a>
+      <a  href='/docente/realizar/<%=codigo%>/<%=pregid%>/' type="button" class="btn btn-primary" >Enviar pregunta</a>
       <br>
       <br>
       <br>

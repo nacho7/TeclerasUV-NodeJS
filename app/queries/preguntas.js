@@ -1,4 +1,5 @@
 var db = require('../models');
+var sequelize1 = require('sequelize');
 var sequelize = require("../models/sequelize.js");
 //console.log(db.sequelize);
 exports.consultas = {
@@ -25,10 +26,18 @@ exports.consultas = {
 
      buscar_preguntas_id: function(pregid) {
       return sequelize
-      .query("select PM_TEXTO, PM_NOMBRE, RES_TEXTO, PM_CORRECTA, PM_TIPO from TV_PREGUNTA_MAESTRA inner join TV_RESPUESTAS on TV_PREGUNTA_MAESTRA.PM_ID=TV_RESPUESTAS.PM_ID and TV_PREGUNTA_MAESTRA.PM_ID =?", {replacements: [pregid], type: sequelize.QueryTypes.SELECT} )
+      .query("select TV_PREGUNTA_MAESTRA.PM_ID as PM_ID, PM_TEXTO, PM_NOMBRE, RES_TEXTO, PM_CORRECTA, PM_TIPO from TV_PREGUNTA_MAESTRA inner join TV_RESPUESTAS on TV_PREGUNTA_MAESTRA.PM_ID=TV_RESPUESTAS.PM_ID and TV_PREGUNTA_MAESTRA.PM_ID =?", {replacements: [pregid], type: sequelize.QueryTypes.SELECT} )
     },
 
-
+    insertar_pregunta_realizada: function(pmid, claid) {
+        return db.TV_PREGUNTA_REALIZADA
+          .build({
+            PR_HORA_INICIO: sequelize1.fn('NOW'), 
+            PM_ID: pmid,
+            CLA_ID: claid
+          })
+          .save()
+      }
 
   
   }

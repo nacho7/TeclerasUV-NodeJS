@@ -14,30 +14,26 @@ module.exports = function(app) {
   }));
   app.use('/', router);
   //router consulta las preguntas datos dela asignatura
-  var code=randomstring.generate(7);   
+  var code=randomstring.generate(4);   
+  var clasid;
 
   router.get('/docente/seleccionar/:idasignatura/:idparalelo', auth_docente, function(request, response, next) {var idprofesor=request.session.name;
-    var iddocente=request.session.name;
+     var iddocente=request.session.name;
 
-      // NPM INSTALL RANDOMSTRING!!!!!!!!!!!!!!!!!!!!!!!!!!
+     var variable = request.params.idasignatura;
 
-      //    clase.clase.insertar_una_clase(code,request.params.idparalelo, request.params.idasignatura,iddocente);
-         // console.log(resultado_estudiante);
-         
-         //cuando llegamos de la lista de ramos, busco si la clase que deberia crear existe, si no existe la creo.
-         var flag=0;
-         clase.consultas.buscar_una_clase(code,request.params.idparalelo, request.params.idasignatura,iddocente)
-         .then(function(clase_res){
-              console.log("la clase ya existe????: ",clase_res)
-              if(clase_res  != null){
-                flag=1;}
-         })
+     //busco si existe una clase con el codigo ya creada, si existe no la creo
+     clase.consultas.buscar_una_clase(code)
+     .then(function(clase_res){
+      console.log("la clase ya existeprimerooooo????: ",clase_res)
 
-        if(flag==0){  // si la clase aun no existe, la agrego a la bd
-            clase.consultas.insertar_una_clase(code,request.params.idparalelo, request.params.idasignatura,iddocente);
+       if(clase_res == null){  // si la clase aun no existe, la agrego a la bd
+        clase.consultas.insertar_una_clase(code,request.params.idparalelo, request.params.idasignatura,iddocente);
+  
+       }
+     })
 
-        }
-
+        
     console.log("la id del profe es : ----------------------------------------> " + idprofesor);
     
     preguntas.consultas.buscar_preguntas_asignatura(request.params.idasignatura, request.params.idparalelo, iddocente)
@@ -45,6 +41,8 @@ module.exports = function(app) {
       console.log("Preguntas del ramo/paralelo: ",preguntas_res)
 
       var preguntas = [];
+
+
       for(i in preguntas_res){
           preguntas.push({
           id: preguntas_res[i].PM_ID,
@@ -53,6 +51,8 @@ module.exports = function(app) {
         })
       }
       console.log("antes del render, asig ->>>>>>>>>>>>>>:"+request.params.idasignatura)
+
+
     response.render('docenteseleccionarpregunta', {preguntas: preguntas , 
       idasignatura: request.params.idasignatura, 
       idparalelo: request.params.idparalelo,
@@ -142,11 +142,12 @@ module.exports = function(app) {
     preguntas.consultas.buscar_preguntas_id(request.params.idpregunta)
     .then(function(preguntas_res) {
       console.log("lo que encontro con la id de la pregunta es :     ",preguntas_res)
+      //xD!!!!!!!
       var alphabet = ['a)','b)','c)','d)','e)','f)','g)','h)','i)','j)','k)','l)','m)','n)','o)','p)','q)','r)','s)','t)','u)','v)','w)','x)','y)','z)'];
       var preguntas = [];
       var correcta;
       var tipo;
-      var pregid;
+      var pregid = request.params.idpregunta;
 
       if(preguntas_res!= null){
 
@@ -166,7 +167,7 @@ module.exports = function(app) {
           }
 
           preguntas.push({
-          id: preguntas_res[i].PM_ID,  
+          pmid: preguntas_res[i].PM_ID,  
           pregtexto: preguntas_res[i].PM_TEXTO,
           nombre: preguntas_res[i].PM_NOMBRE,
           respuesta: preguntas_res[i].RES_TEXTO,
@@ -179,12 +180,32 @@ module.exports = function(app) {
 
       console.log("antes del render, asig ->>>>>>>>>>>>>>:"+request.params.idpregunta)
 
+    
 
-
-    response.render('docenteconfirmarpregunta', {preguntas: preguntas, letras: alphabet, correcta: correcta, tipo: tipo, codigo: code});
+    response.render('docenteconfirmarpregunta', {preguntas: preguntas,
+     letras: alphabet, 
+     correcta: correcta, 
+     tipo: tipo, 
+     codigo: code,
+     pregid: pregid,
+     clasid: clasid});
     })
   });
 
+   router.get('/docente/realizar/:pmid/:claid', function(request, response, next) {  
   
+    var iddocente=request.session.name;  
+    /*
+      
+
+    */
+             response.render('docenterealizarpregunta', {
+
+             });
+            
+      })
+    
+
+
 
 };
