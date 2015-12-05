@@ -29,18 +29,27 @@ module.exports = function(app) {
     /*Recordar que las consultas en sequelize se trabajan como callbacks, como todo en javascriptxD
      */
     queries.login_y_registro.buscar_docentes.then(function(resultado_docente) {
+      contest=0;
       console.log("resultado_docente: ", resultado_docente);
       if (resultado_docente != null && resultado_docente.length > 0) {
         console.log("no vacio");
         for (user in resultado_docente) {
-          if (resultado_docente[user].dataValues.DOC_CORREO != request.body.email) {
-            registro(request, response, next);
+          if (resultado_docente[user].dataValues.DOC_CORREO == request.body.email) {
+            contest++;
           }
         }
-        response.redirect("/");
+        if(contest==0){
+          registro(request, response, next);
+        }
+        else{
+          response.redirect("/docente/registro?error=existe");
+          next();
+        }
+
       } else {
         console.log("vacio");
         registro(request, response, next);
+        return;
       }
     })
 
@@ -60,9 +69,11 @@ module.exports = function(app) {
           request.session.name = resultado_docente.dataValues.DOC_ID;
           request.session.tipo = "docente";
           response.redirect("/docente/menu");
+          return;
         })
       } else {
         response.redirect("/docente/registro?error=contrasena");
+        return;
       }
 
     };

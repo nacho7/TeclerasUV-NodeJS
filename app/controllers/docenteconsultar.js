@@ -1,7 +1,7 @@
 var express = require('express'),
   router = express.Router(),
   auth_docente = require("../middleware/auth_docente.js"),
-  queries = require('../queries/index.js');
+  asignaturas = require('../queries/asignaturas.js');
 
 module.exports = function(app) {
 
@@ -13,18 +13,10 @@ module.exports = function(app) {
   app.use('/', router);
 /*Este router sólo consulta todas las asignaturas, no recibe nada
 */
-  router.get('/docente/consultar', auth_docente, function(request, response, next) {
-    /*Estos son datos de prueba, simplemente para que vean que se puede :v
-     */
-    var datos_prueba = [{
-      nombre: "Erick",
-      apellido: "Merino"
-    }, {
-      nombre: "Hola",
-      apellido: "Chao"
-    }]
-
-    queries.consultas.buscar_asignaturas.then(function(asignaturas_res){
+  router.get('/docente/menu', auth_docente, function(request, response, next) {
+    console.log(asignaturas);
+    var idprofesor=request.session.name;
+    asignaturas.consultas.buscar_asignaturas_profesor(idprofesor).then(function(asignaturas_res){
       console.log("asignaturas docente",asignaturas_res)
       var asignaturas = [];
       /*for i in algo es azúcar sintáctico de javascript para:
@@ -33,13 +25,14 @@ module.exports = function(app) {
       */
       for(i in asignaturas_res){
         asignaturas.push({
-          id: asignaturas_res[i].dataValues.ASI_ID,
-          nombre: asignaturas_res[i].dataValues.ASI_NOMBRE,
-          codigo: asignaturas_res[i].dataValues.ASI_CODIGO
+          id: asignaturas_res[i].ASI_ID,
+          nombre: asignaturas_res[i].ASI_NOMBRE,
+          codigo: asignaturas_res[i].ASI_CODIGO,
+          paralelo: asignaturas_res[i].PAR_NUMERO,
+          paralelo_id: asignaturas_res[i].PAR_ID
         })
       }
       response.render('docenteconsultar', {
-        datos: datos_prueba,
         asignaturas: asignaturas
       });
     })

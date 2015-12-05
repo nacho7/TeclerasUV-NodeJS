@@ -1,7 +1,7 @@
 var express = require('express'),
   router = express.Router(),
   auth_general = require("../middleware/auth_general.js"),
-  queries = require('../queries/index.js');
+  asignaturas = require('../queries/asignaturas.js');
 
 module.exports = function(app) {
 
@@ -20,14 +20,17 @@ etc
 Se recibe en:
 request.params.nombreparametr
 o*/
-  router.get('/consultaruno/:idasignatura', auth_general, function(request, response, next) {
-    queries.consultas.buscar_una_asignatura(request.params.idasignatura).then(function(asignatura_res) {
+  router.get('/consultaruno/:idasignatura/:idparalelo', auth_general, function(request, response, next) {
+    asignaturas.consultas.buscar_una_asignatura(request.params.idasignatura, request.params.idparalelo)
+    .then(function(asignatura_res) {
+      console.log(asignatura_res);
       var asignatura;
       if (asignatura_res != null) {
       asignatura = {
-        id: asignatura_res.dataValues.ASI_ID,
-        nombre: asignatura_res.dataValues.ASI_NOMBRE,
-        codigo: asignatura_res.dataValues.ASI_CODIGO
+        id: asignatura_res[0].ASI_ID,
+        nombre: asignatura_res[0].ASI_NOMBRE,
+        codigo: asignatura_res[0].ASI_CODIGO,
+        paralelo: asignatura_res[0].PAR_NUMERO,
       }
       /*Recordar que si usan:
       console.log("esto es"+mivar)

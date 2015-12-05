@@ -1,5 +1,19 @@
 <% include header %>
 
 <h1>Analizar Pregunta</h1>
+<h3>Lista de Ramo</h3>
+<h4>Seleccione un Ramo</h4>
+
+<span>Ramos</span>
+<form action="/seleccionar/fecha" method="get">
+<select name="ramo">
+	<option value="ramo1">Ramo 1</option>
+	<option value="ramo2">Ramo 2</option>
+	<option value="ramo3">Ramo 3</option>
+</select>
+<input type="hidden" name="asignatura" value="0" />
+<input type="submit" name='submit' value='Siguiente' />
+</form>
+
 <% include linkmenudocente %>
 <% include footer %>

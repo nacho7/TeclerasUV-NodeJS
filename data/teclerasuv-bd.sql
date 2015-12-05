@@ -27,7 +27,7 @@ CREATE TABLE `tv_asignatura` (
   `ASI_CODIGO` varchar(10) NOT NULL COMMENT 'Código de la asignatura (ej.: INC201)',
   `ASI_NOMBRE` varchar(45) NOT NULL COMMENT 'Nombre de la asignatura',
   PRIMARY KEY (`ASI_ID`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='Tabla de asignaturas. Prefijo: ASI.';
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8 COMMENT='Tabla de asignaturas. Prefijo: ASI.';
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -36,6 +36,7 @@ CREATE TABLE `tv_asignatura` (
 
 LOCK TABLES `tv_asignatura` WRITE;
 /*!40000 ALTER TABLE `tv_asignatura` DISABLE KEYS */;
+INSERT INTO `tv_asignatura` VALUES (1,'INC411','Desarrollo Web'),(2,'INC313','Metodologías de análisis'),(3,'INC101','Cálculo Diferencial'),(4,'INC412','Sistemas de bases de datos'),(5,'INC413','Arquitectura de Software'),(6,'INC414','Evaluación de proyectos'),(7,'INC102','Fundamentos de programación'),(8,'INCLaVida','La vida :v');
 /*!40000 ALTER TABLE `tv_asignatura` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -55,7 +56,7 @@ CREATE TABLE `tv_asistencia_clase` (
   KEY `fk_TV_ASISTENCIA_CLASE_TV_CLASE1_idx` (`CLA_ID`),
   CONSTRAINT `fk_TV_ASISTENCIA_CLASE_TV_CLASE1` FOREIGN KEY (`CLA_ID`) REFERENCES `tv_clase` (`CLA_ID`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `fk_TV_ASISTENCIA_CLASE_TV_ESTUDIANTE1` FOREIGN KEY (`EST_ID`) REFERENCES `tv_estudiante` (`EST_ID`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='Estudiantes que asisten a una clase. Se crea un registro cuando el estudiante se agrega a una clase.\nPrefijo: AC';
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8 COMMENT='Estudiantes que asisten a una clase. Se crea un registro cuando el estudiante se agrega a una clase.\nPrefijo: AC';
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -64,6 +65,7 @@ CREATE TABLE `tv_asistencia_clase` (
 
 LOCK TABLES `tv_asistencia_clase` WRITE;
 /*!40000 ALTER TABLE `tv_asistencia_clase` DISABLE KEYS */;
+INSERT INTO `tv_asistencia_clase` VALUES (1,1,1),(2,2,1),(3,3,1),(4,1,2),(5,4,3),(6,5,4),(7,1,5),(8,2,5),(9,3,5);
 /*!40000 ALTER TABLE `tv_asistencia_clase` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -84,7 +86,7 @@ CREATE TABLE `tv_clase` (
   PRIMARY KEY (`CLA_ID`),
   KEY `fk_TV_CLASE_TV_PARALELO1_idx` (`PAR_ID`,`ASI_ID`,`DOC_ID`),
   CONSTRAINT `fk_TV_CLASE_TV_PARALELO1` FOREIGN KEY (`PAR_ID`, `ASI_ID`, `DOC_ID`) REFERENCES `tv_paralelo` (`PAR_ID`, `ASI_ID`, `TV_DOCENTE_DOC_ID`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='Clase realizada por el profesor usando el sistema. Creada en CU Realizar Pregunta.\nPrefijo_CLA.';
+) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8 COMMENT='Clase realizada por el profesor usando el sistema. Creada en CU Realizar Pregunta.\nPrefijo_CLA.';
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -93,6 +95,7 @@ CREATE TABLE `tv_clase` (
 
 LOCK TABLES `tv_clase` WRITE;
 /*!40000 ALTER TABLE `tv_clase` DISABLE KEYS */;
+INSERT INTO `tv_clase` VALUES (1,'password','2015-11-21 18:04:25',1,3,5),(2,'mipass2','2015-11-21 18:04:30',2,3,1),(3,'mipass','2015-11-27 08:30:00',3,7,4),(4,'wasd','2015-12-04 23:59:59',4,7,6),(5,'asdf','2015-12-25 00:00:00',5,1,2),(6,'bye','2015-12-31 14:30:00',6,8,1),(7,'holi','1592-03-14 06:53:05',7,8,1),(8,'chao','2005-05-05 05:05:05',8,4,4),(9,'hola','2001-01-10 01:01:01',3,7,4),(10,'jesus','0001-12-25 00:00:00',1,3,5),(11,'otrapassword','2012-12-12 12:12:12',1,3,5);
 /*!40000 ALTER TABLE `tv_clase` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -110,7 +113,7 @@ CREATE TABLE `tv_docente` (
   `DOC_PASSWORD` varchar(45) NOT NULL COMMENT 'Contraseña para usuarios de tipo Docente.',
   PRIMARY KEY (`DOC_ID`),
   UNIQUE KEY `DOC_CORREO_UNIQUE` (`DOC_CORREO`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COMMENT='Docentes. Sólo un docente es el encargado de hacer preguntas de su paralelo.\nPrefijo: DOC';
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8 COMMENT='Docentes. Sólo un docente es el encargado de hacer preguntas de su paralelo.\nPrefijo: DOC';
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -119,7 +122,7 @@ CREATE TABLE `tv_docente` (
 
 LOCK TABLES `tv_docente` WRITE;
 /*!40000 ALTER TABLE `tv_docente` DISABLE KEYS */;
-INSERT INTO `tv_docente` VALUES (1,'erickfmm@gmail.com','erickprofe','b1548ff90b58beac609e0f9ccaba66025b1f9039');
+INSERT INTO `tv_docente` VALUES (1,'erickfmm@gmail.com','erickprofe','b1548ff90b58beac609e0f9ccaba66025b1f9039'),(2,'rene.noel@uv.cl','René Noel','b1548ff90b58beac609e0f9ccaba66025b1f9039'),(3,'rosa.velasquezr@alumnos.uv.cl','Rosa Velasquez','b1548ff90b58beac609e0f9ccaba66025b1f9039'),(4,'eliana.providel@uv.cl','Eliana Providel','b1548ff90b58beac609e0f9ccaba66025b1f9039'),(5,'urbina@uv.cl','Profe Urbina','b1548ff90b58beac609e0f9ccaba66025b1f9039'),(6,'roberto.munoz@uv.cl','Roberto Muñoz','b1548ff90b58beac609e0f9ccaba66025b1f9039');
 /*!40000 ALTER TABLE `tv_docente` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -137,7 +140,7 @@ CREATE TABLE `tv_estudiante` (
   `EST_PASSWORD` varchar(45) NOT NULL COMMENT 'Contraseña para usuario de tipo estudiante.',
   PRIMARY KEY (`EST_ID`),
   UNIQUE KEY `EST_CORREO_UNIQUE` (`EST_CORREO`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COMMENT='Estudiante.\nPrefijo: EST';
+) ENGINE=InnoDB AUTO_INCREMENT=25 DEFAULT CHARSET=utf8 COMMENT='Estudiante.\nPrefijo: EST';
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -146,7 +149,7 @@ CREATE TABLE `tv_estudiante` (
 
 LOCK TABLES `tv_estudiante` WRITE;
 /*!40000 ALTER TABLE `tv_estudiante` DISABLE KEYS */;
-INSERT INTO `tv_estudiante` VALUES (1,'erickfmm@gmail.com','erick','b1548ff90b58beac609e0f9ccaba66025b1f9039');
+INSERT INTO `tv_estudiante` VALUES (1,'erickfmm@gmail.com','erick','b1548ff90b58beac609e0f9ccaba66025b1f9039'),(2,'vincegeratorixxx@gmail.com','erick','b1548ff90b58beac609e0f9ccaba66025b1f9039'),(3,'rosa.velasquezr@alumnos.uv.cl','Rosa','b1548ff90b58beac609e0f9ccaba66025b1f9039'),(4,'hola@hola.com','hola','b1548ff90b58beac609e0f9ccaba66025b1f9039'),(5,'holi@holi.com','holi','b1548ff90b58beac609e0f9ccaba66025b1f9039'),(6,'nombre@nombre.com','nombre','b1548ff90b58beac609e0f9ccaba66025b1f9039'),(7,'tecleras@uv.cl','tecleras','b1548ff90b58beac609e0f9ccaba66025b1f9039'),(8,'CESAR.CACERES@alumnos.uv','César','b1548ff90b58beac609e0f9ccaba66025b1f9039'),(9,'maria.godoyo@alumnos.uv.cl','María Paz','b1548ff90b58beac609e0f9ccaba66025b1f9039'),(10,'laura.diazo@alumnos.uv.cl','Laura','b1548ff90b58beac609e0f9ccaba66025b1f9039');
 /*!40000 ALTER TABLE `tv_estudiante` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -167,7 +170,7 @@ CREATE TABLE `tv_paralelo` (
   KEY `fk_TV_PARALELO_TV_DOCENTE1_idx` (`TV_DOCENTE_DOC_ID`),
   CONSTRAINT `fk_Paralelo_Asignatura1` FOREIGN KEY (`ASI_ID`) REFERENCES `tv_asignatura` (`ASI_ID`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `fk_TV_PARALELO_TV_DOCENTE1` FOREIGN KEY (`TV_DOCENTE_DOC_ID`) REFERENCES `tv_docente` (`DOC_ID`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='Paralelos de una asignatura. Prefijo: PAR';
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8 COMMENT='Paralelos de una asignatura. Prefijo: PAR';
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -176,6 +179,7 @@ CREATE TABLE `tv_paralelo` (
 
 LOCK TABLES `tv_paralelo` WRITE;
 /*!40000 ALTER TABLE `tv_paralelo` DISABLE KEYS */;
+INSERT INTO `tv_paralelo` VALUES (1,1,3,5),(2,2,3,1),(3,1,7,4),(4,2,7,6),(5,1,1,2),(6,1,8,1),(7,2,8,1),(8,1,4,4),(9,1,1,3);
 /*!40000 ALTER TABLE `tv_paralelo` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -202,7 +206,7 @@ CREATE TABLE `tv_pregunta_maestra` (
   PRIMARY KEY (`PM_ID`),
   KEY `fk_TV_PREGUNTA_MAESTRA_TV_PARALELO1_idx` (`TV_PARALELO_PAR_ID`,`TV_PARALELO_ASI_ID`,`TV_PARALELO_TV_DOCENTE_DOC_ID`),
   CONSTRAINT `fk_TV_PREGUNTA_MAESTRA_TV_PARALELO1` FOREIGN KEY (`TV_PARALELO_PAR_ID`, `TV_PARALELO_ASI_ID`, `TV_PARALELO_TV_DOCENTE_DOC_ID`) REFERENCES `tv_paralelo` (`PAR_ID`, `ASI_ID`, `TV_DOCENTE_DOC_ID`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='Pregunta maestra (Creada en CU Gestionar Pregunta). Prefijo: PM';
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8 COMMENT='Pregunta maestra (Creada en CU Gestionar Pregunta). Prefijo: PM';
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -211,6 +215,7 @@ CREATE TABLE `tv_pregunta_maestra` (
 
 LOCK TABLES `tv_pregunta_maestra` WRITE;
 /*!40000 ALTER TABLE `tv_pregunta_maestra` DISABLE KEYS */;
+INSERT INTO `tv_pregunta_maestra` VALUES (1,'¿Por qué el de la foto repitió el ramo?','Soy yo T_T','1','2015-12-25 23:59:00','fotoerick.jpg',NULL,'La explicación es mística','bio transporte.jpg',1,3,5),(2,'¿Whatsapp falla?','Explique sin que le falle','2','2015-11-20 18:04:30','whatsapp.jpg',NULL,'La explicación a la respuesta es que nadie lo sabe',NULL,2,3,1),(3,'¿Es entretenido el ramo de fundamentos?','La mejor universidad dicen pro ahí','2','2015-11-25 08:30:00','logouv.png','Android.mp4','La respuesta es que sí, es muuuuy entretenido :)',NULL,3,7,4),(4,'¿Está satisfecho con la asignatura?','La asignatura es enseñada por roberto muñoz y se llama fundamentos de programación','3','2015-12-02 23:59:59',NULL,NULL,'',NULL,4,7,6),(5,'¿Le gustó el proyecto?',':trollface:','3','2015-11-25 00:00:00',NULL,NULL,'',NULL,5,1,2),(6,'¿La vida es fácil?','Elija la respuesta dicotómica','2','2015-12-25 14:30:00',NULL,NULL,'No, la vida es cruel y dura :p','bio transporte1.jpg',6,8,1),(7,'¿Izzy el ramo?','Vivan las consultas y los triggers','1','2005-01-05 05:05:05',NULL,NULL,'Puros 7',NULL,8,4,4),(8,'Viva cálculo','Seleccione su satisfacción','3','2012-12-21 00:00:00',NULL,NULL,'',NULL,1,3,5);
 /*!40000 ALTER TABLE `tv_pregunta_maestra` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -233,7 +238,7 @@ CREATE TABLE `tv_pregunta_realizada` (
   KEY `fk_TV_PREGUNTA_REALIZADA_TV_CLASE1_idx` (`CLA_ID`),
   CONSTRAINT `fk_TV_PREGUNTA_REALIZADA_TV_CLASE1` FOREIGN KEY (`CLA_ID`) REFERENCES `tv_clase` (`CLA_ID`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `fk_TV_PREGUNTA_REALIZADA_TV_PREGUNTA_MAESTRA1` FOREIGN KEY (`PM_ID`) REFERENCES `tv_pregunta_maestra` (`PM_ID`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='Preguntas realizadas en una clase. Creadas en CU Realizar pregunta.\nPrefijo: PR';
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8 COMMENT='Preguntas realizadas en una clase. Creadas en CU Realizar pregunta.\nPrefijo: PR';
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -242,6 +247,7 @@ CREATE TABLE `tv_pregunta_realizada` (
 
 LOCK TABLES `tv_pregunta_realizada` WRITE;
 /*!40000 ALTER TABLE `tv_pregunta_realizada` DISABLE KEYS */;
+INSERT INTO `tv_pregunta_realizada` VALUES (1,'2015-11-21 19:04:25','2015-11-21 20:04:25',30,1,1),(2,'2015-11-22 19:04:25','2015-11-22 20:04:24',60,1,1),(3,'2015-11-23 19:04:25','2015-11-23 20:04:24',50,2,2),(4,'2015-11-28 08:30:00','2015-11-29 08:29:59',90,3,3),(5,'2015-12-25 00:00:00','2015-12-26 00:00:00',99,5,5),(6,'2015-12-26 00:00:00','2015-12-27 00:00:00',9999,5,5),(7,'2015-12-31 14:30:00','2016-01-01 14:29:59',1,6,6),(8,'2012-12-12 12:12:12','2012-12-13 12:12:12',20,1,11);
 /*!40000 ALTER TABLE `tv_pregunta_realizada` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -265,7 +271,7 @@ CREATE TABLE `tv_pregunta_respondida` (
   CONSTRAINT `fk_TV_PREGUNTA_RESPONDIDA_TV_ESTUDIANTE1` FOREIGN KEY (`EST_ID`) REFERENCES `tv_estudiante` (`EST_ID`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `fk_TV_PREGUNTA_RESPONDIDA_TV_PREGUNTA_REALIZADA1` FOREIGN KEY (`PR_ID`) REFERENCES `tv_pregunta_realizada` (`PR_ID`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `fk_TV_PREGUNTA_RESPONDIDA_TV_RESPUESTAS1` FOREIGN KEY (`RES_ID`) REFERENCES `tv_respuestas` (`RES_ID`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='Respuestas dadas por los estudiantes.\nPrefijo: PRES';
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8 COMMENT='Respuestas dadas por los estudiantes.\nPrefijo: PRES';
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -274,6 +280,7 @@ CREATE TABLE `tv_pregunta_respondida` (
 
 LOCK TABLES `tv_pregunta_respondida` WRITE;
 /*!40000 ALTER TABLE `tv_pregunta_respondida` DISABLE KEYS */;
+INSERT INTO `tv_pregunta_respondida` VALUES (1,1,1,2,NULL),(2,1,2,3,NULL),(3,2,2,1,NULL),(4,3,1,5,NULL),(5,5,1,NULL,'3'),(6,5,2,NULL,'2'),(7,6,2,NULL,'5');
 /*!40000 ALTER TABLE `tv_pregunta_respondida` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -292,7 +299,7 @@ CREATE TABLE `tv_respuestas` (
   PRIMARY KEY (`RES_ID`),
   KEY `fk_Alternativa_PreguntaMaestra_idx` (`PM_ID`),
   CONSTRAINT `fk_Alternativa_PreguntaMaestra` FOREIGN KEY (`PM_ID`) REFERENCES `tv_pregunta_maestra` (`PM_ID`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='Respuestas posibles para una Pregunta Maestra. Prefijo: RES';
+) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8 COMMENT='Respuestas posibles para una Pregunta Maestra. Prefijo: RES';
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -301,6 +308,7 @@ CREATE TABLE `tv_respuestas` (
 
 LOCK TABLES `tv_respuestas` WRITE;
 /*!40000 ALTER TABLE `tv_respuestas` DISABLE KEYS */;
+INSERT INTO `tv_respuestas` VALUES (1,'Porque es flojo',1,'0'),(2,'nadie lo sabe',1,'0'),(3,'razones místicas',1,'1'),(4,'Siempre',2,'0'),(5,'Nunca',2,'1'),(6,'Mucho',3,'1'),(7,'Nada',3,'0'),(8,'Súper fácil',6,'0'),(9,'Es cruel y dura',6,'1'),(10,'Puros 7',7,'1'),(11,'Vivan las consultas',7,'1'),(12,'Es fome',7,'0'),(13,'No sirve',7,'0');
 /*!40000 ALTER TABLE `tv_respuestas` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -313,4 +321,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2015-11-17 16:50:21
+-- Dump completed on 2015-11-21 19:39:20

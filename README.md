@@ -24,14 +24,6 @@ si dice que npm es un comando no reconocido, cerrar todas las terminales y volve
 npm install -g gulp
 ````
 
-##Arrancar
-
-````
-gulp
-````
-
-La página estará en localhost:3000
-
 ##Base de datos
 
 Instalar MySQL 5.6.x (es la que uso, aunque en teoría debería funcionar con 5.7.x, no lo he probado).
@@ -82,7 +74,15 @@ mysql -u teclerasuv -p teclerasuv < archivo_dump.sql
 
 Cuando pida contraseña, tipear: desarrolloweb
 
-Usando el archivo dump de la carpeta data.
+Usando el archivo sql de la carpeta data.
+
+##Arrancar
+
+````
+gulp
+````
+
+La página estará en localhost:3000
 
 ##Tests
 

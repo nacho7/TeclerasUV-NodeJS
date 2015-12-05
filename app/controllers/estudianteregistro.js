@@ -22,17 +22,27 @@ module.exports = function(app) {
     console.log(request.body);
     queries.login_y_registro.buscar_estudiantes.then(function(resultado_estudiantes) {
       console.log("resultado estudiantes:", resultado_estudiantes);
+      contest=0;
       if (resultado_estudiantes != null && resultado_estudiantes.length > 0) {
         console.log("no vacio");
         for (user in resultado_estudiantes) {
-          if (resultado_estudiantes[user].dataValues.EST_CORREO != request.body.email) {
-            registro(request, response, next);
+          if (resultado_estudiantes[user].dataValues.EST_CORREO == request.body.email) {
+            contest++;
+
           }
         }
-        response.redirect("/estudiante/registro?error=existe");
+        if(contest==0){
+          registro(request, response, next);
+        }
+        else{
+          response.redirect("/estudiante/registro?error=existe");
+          next();
+        }
+
       } else {
         console.log("vacio");
         registro(request, response, next);
+        next();
       }
     })
 
@@ -49,10 +59,12 @@ module.exports = function(app) {
           request.session.name = resultado_estudiante.dataValues.EST_ID;
           request.session.tipo = "estudiante";
           response.redirect("/estudiante/menu");
+          next();
 
         })
       } else {
         response.redirect("/estudiante/registro?error=contrasena");
+        next();
       }
 
     };

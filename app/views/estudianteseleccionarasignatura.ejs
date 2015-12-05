@@ -1,0 +1,19 @@
+<% include header %>
+
+<h1>Analizar Pregunta</h1>
+<h3>Lista de Ramo</h3>
+<h4>Seleccione una Asignatura</h4>
+
+<span>Preguntas</span>
+<form action="/estudiante/seleccionar/paralelo" method="get">
+<select name="asignatura">
+	<!--acá va un for-->
+	<option value="asignatura1">asignatura 1</option>
+	<option value="asignatura2">asignatura 2</option>
+	<option value="asignatura3">asignatura 3</option>
+</select>
+<input type="submit" name='submit' value='Siguiente' />
+</form>
+
+<% include linkmenuestudiante %>
+<% include footer %>

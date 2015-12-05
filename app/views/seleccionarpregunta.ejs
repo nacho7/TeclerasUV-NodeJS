@@ -1,0 +1,8 @@
+<select class="col-md-3 col-md-offset-1" name="pregunta">
+    <%for(i in preguntas){%>
+    <option value="<%=preguntas[i].idpregunta%>"><%=preguntas[i].nombre%></option>
+    <%}%>
+</select>
+<input type="hidden" name="asignatura" value="<%=idasignatura%>" />
+<input type="hidden" name="paralelo" value="<%=idparalelo%>" />
+<input class="btn btn-success" type="submit" name='submit' value='Siguiente' />

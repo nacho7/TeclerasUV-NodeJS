@@ -1,0 +1,75 @@
+<% include header %>
+<div class="col-md-6 col-md-offset-3">
+	<span>Pregunta de la Clase de las : <%=pregunta.clase_hora%></span>
+	</br>
+	<span>Pregunta Realizada a las : <%=pregunta.pregunta_hora%></span>
+</div>
+
+<div class="col-md-6 col-md-offset-5">
+	<h3><%=pregunta.nombre%></h3>
+	<%=pregunta.texto%>
+<br>
+</div>
+
+<div class="col-md-5 col-md-offset-4">
+	<div class="col-md-5 ">
+		<%for(i in pregunta.respuestas){%>
+			<ul>
+				<li><%=pregunta.respuestas[i]%></li>
+			</ul>
+		<%}%>
+		<br>
+		
+	</div>
+	<div class="col-md-2 ">
+			<img class src="/public/preguntas/imagenes/<%=pregunta.ruta_imagen%>" WIDTH=100 HEIGHT=180 / alt="ERROR">
+			<br>
+		</div>
+</div>
+
+<div class="col-md-12 col-md-offset-3">
+	<div class="col-md-4">
+		<span>La respuesta correcta es <span style="color:green"><%=pregunta.respuesta_correcta%></span></span>
+		<br>
+		<p>	La respuesta correcta de esta pregunta se da debido...	
+		<br>
+		<%=pregunta.explicacion%>
+		<br>
+		
+	</div>
+	<div class="col-md-6">
+		<img class="col-md-2" src="/public/preguntas/imagenesrespuesta/<%=pregunta.explicacion_imagen%>" WIDTH=100 HEIGHT=180 alt=ERROR/>
+		<br> 
+	</p>
+	</div>
+</div>
+
+<div class="col-md-6 col-md-offset-3">
+Respuestas:
+	<br>
+	<%Object.keys(pregunta.cantidad_por_respuesta).forEach(function(key){%>
+	<br>
+	<%=key%>: 
+	<%=pregunta.cantidad_por_respuesta[key]%> Veces
+	<%})%>
+
+</div>	
+
+<div class="col-md-1 col-md-offset-5">
+	<div id="barchart_values" style="width: 900px; height: 300px;">
+			<script type="text/javascript" src="/public/js/Chart.min.js"></script>
+			<div id="canvas-holder">
+			<canvas id="chart-area" width="200" height="200"></canvas>
+
+			<script>
+				var pieData = [
+				{value:1,color:"#0b82e7",highlight: "#0c62ab",label: "Respuesta Correcta"},
+				{value:0,color:"#0b82e7",highlight: "#0c62ab",label: "Respuesta Incorrecta"}];
+				var ctx = document.getElementById("chart-area").getContext("2d");
+				window.myPie = new Chart(ctx).Pie(pieData);	
+			</script>
+	</div>
+</div>
+
+<% include linkmenudocente %>
+<% include footer %>

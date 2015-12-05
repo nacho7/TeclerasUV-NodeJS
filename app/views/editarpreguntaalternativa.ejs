@@ -1,0 +1,54 @@
+<% include header %>
+		<h3>Editar Pregunta de Alternativa</h3>
+		<div class="row row-centered">
+			<div class="col-sm-2 col-centered"></div>
+			<div class="col-sm-8 col-centered">
+				<label for="">Nombre Pregunta</label><br/>
+				<input type="text" value="Equivalencia MiB"><br/>
+				<label for="">Pregunta:</label><br/>
+				<input type="text" value="¿A cuanto equivale MiB?"><br/>
+				<label for="">Imagen</label><br/>
+				<input class="btn btn-primary" type="file"><br/>
+				<label for="">Video</label><br/>
+				<input class="btn btn-primary" type="file" name="" id=""><br/>
+				<label for="">Respuestas:</label><br/>
+				<table class="table table-striped" style="width:100%">
+					<tr>
+    	 				<td>Respuestas</td>
+    					<td>Correcta</td> 
+    					<td>Seleccionar</td>
+  					</tr>
+					<tr>
+    	 				<td>2^20[B]</td>
+    					<td><input type="radio" name="" id=""></td> 
+    					<td><input type="checkbox" name="" id=""></td>
+  					</tr>
+  					<tr>
+    					<td>10^10[B]</td>
+    					<td><input type="radio" name="" id=""></td> 
+    					<td><input type="checkbox" name="" id=""></td>
+  					</tr>
+  					<tr>
+    					<td>2^10[B]</td>
+    					<td><input type="radio" name="" id=""></td> 
+    					<td><input type="checkbox" name="" id=""></td>
+  					</tr>
+				</table>
+				<input class="btn btn-primary" type="button" value="Agregar">
+				<input class="btn btn-primary" type="button" value="Editar">
+				<input class="btn btn-primary" type="button" value="Quitar"><br/>
+				<label for="">Explicacion respuesta correcta:</label><br/>
+				<textarea name="" id="" cols="30" rows="5">Un MiB equivale a 2^20[B]</textarea><br/>
+				<label for="">Imagen</label><br/>
+				<input type="file"><br/>
+				<input class="btn btn-primary" type="submit" value="Editar">
+				<input class="btn btn-primary" type="button" value="Volver" onclick="goBack()">
+				<script>
+					function goBack() {
+    					window.history.back()
+					}
+				</script>
+			</div>
+		</div>
+	</div>
+	<% include footer %>

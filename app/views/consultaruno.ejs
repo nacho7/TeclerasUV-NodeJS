@@ -1,20 +1,27 @@
 <% include header %>
 
 <%if(typeof asignatura != 'undefined' && typeof asignatura.id != 'undefined'){%>
-<hr>
-nombre:
-<br>
-<%=asignatura.id%>
-<br>
-Nombre:
-<%=asignatura.nombre%>
-Codigo:
-<%=asignatura.codigo%>
-<br>
-<hr>
+<div class="row row-centered">
+  <div class="col-md-8 col-centered">
+    <hr>
+    ID:
+    <%=asignatura.id%>
+    <br>
+    Nombre:
+    <%=asignatura.nombre%>7
+    <br>
+    Codigo:
+    <%=asignatura.codigo%>
+    <br>
+    Paralelo:
+    <%=asignatura.paralelo%>
+    <hr>
+  </div>
+</div>
+
 <%}else{%>
   <script type="text/javascript">
-    window.location="/menu";
+    window.location="/";
   </script>
 <%}%>
 

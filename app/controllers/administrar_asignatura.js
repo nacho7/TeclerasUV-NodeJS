@@ -21,7 +21,7 @@ Ejemplo: si en la func middleware nunca llamo a next(), termina la ejecución de
 Recordar: post recibe en request.body*/
   router.get('/admin/administrar_asignatura', auth_docente, function(request, response, next) {
     //queries es un namespace para los archivos de consultas, que inventé yo para no importar tanta cosa xD ver app/queries/index.js
-    queries.consultas.buscar_una_asignatura(request.query.idasignatura).then(function(asignatura_res) {
+    queries.asignaturas.buscar_una_asignatura_admin(request.query.idasignatura).then(function(asignatura_res) {
       var asignatura;
       console.log(asignatura_res);
       //Este if es para comprobar que no sea null, si es null y hago null.variable, dará error y mostrará un mensaje feito
@@ -69,6 +69,6 @@ Recordar: post recibe en request.body*/
      y luego en el get del otro lado las usan simplemente, como si nada,
      ejemplo:
       usando = mivar;*/
-    response.redirect("/docente/consultar");
+    response.redirect("/docente/menu");
   })
 }

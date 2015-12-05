@@ -1,11 +1,18 @@
 <% include header %>
 
+<div class="row row-centered">
+  <div class="col-md-8 col-centered">
+    <a href="/estudiante/seleccionar/asignatura" class="btn-md">Analizar Pregunta</a>
+    <br>
+    <a href="/estudiante/entrar" class="btn-md">Entrar a sala</a>
+    <br>
+    <br>
+    <form class="" action="/signout" method="post">
+      <input class="form-control" type="submit" name="sign out" value="Sign out">
+    </form>
+  </div>
+</div>
 
-<a href="/estudiante/consultar" class="btn-md">Consultar</a>
-<br>
-<a href="/estudiante/entrar" class="btn-md">Entrar a sala</a>
 
-<form class="" action="/signout" method="post">
-  <input class="form-control" type="submit" name="sign out" value="Sign out">
-</form>
+
 <% include footer %>

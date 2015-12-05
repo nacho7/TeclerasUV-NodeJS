@@ -1,0 +1,29 @@
+<% include header %>
+
+<div>
+<span>Pregunta de la </span><span>Clase de las <%=pregunta.clase_hora%></span>
+</br>
+<span>PreguntaRealizada a las <%=pregunta.pregunta_hora%></span>
+<h3><%=pregunta.nombre%></h3>
+<br />
+<%=pregunta.texto%>
+<br />
+<ul>
+<li>1.- Muy De acuerdo</li>
+<li>2.- De acuerdo</li>
+<li>3.- Indiferencia</li>
+<li>4.- Desacuerdo</li>
+<li>5.- Muy en Desacuerdo</li>
+</ul>
+<br />
+Respuestas:
+<br>
+<%Object.keys(pregunta.cantidad_por_respuesta).forEach(function(key){%>
+<br>
+<%=key%>:
+<%=pregunta.cantidad_por_respuesta[key]%> Veces
+<%})%>
+</div>
+
+<% include linkmenudocente %>
+<% include footer %>

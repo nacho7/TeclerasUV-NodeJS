@@ -8,9 +8,5 @@ exports.consultas = {
         ASI_NOMBRE: nombre
       })
       .save()
-      .then(function(anotherTask) {
-        // you can now access the currently saved task with the variable anotherTask... nice!
-        console.log(anotherTask);
-      })
   }
 }
