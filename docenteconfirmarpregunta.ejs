@@ -1,0 +1,58 @@
+<% include header %>
+
+<div class="row row-centered">
+  <div class="col-md-8 col-centered">
+    <h3><%=preguntas[0].pregtexto%></h3>
+
+    <h3>Pregunta de tipo :<%=tipo%> </h3>
+    <br>
+    <h3><%=preguntas[0].nombre%></h3>
+    
+    <% if(preguntas[0].tipo=='1'){ %>
+
+          <%for(i in preguntas){%>
+
+            <label><%=letras[i]%></label>
+             <%=preguntas[i].respuesta%>
+              <br>       
+          <%}%>
+
+    <%}else if(preguntas[0].tipo=='2'){%>
+
+        <label>a) Sì</label>
+        <br>
+        <label>a) No</label>
+
+    <%}else{%>
+      <textarea rows="4" cols="50"></textarea>
+    <%}%>   
+
+    <h3> Correcta: <%=correcta%></h3>
+    <br>
+
+    
+    <br>
+    <form  method="post" action="/enviarrespuesta" >
+    <div align= "center">
+      <a  href='/docente/realizar/<%=codigo%>/<%=preguntas[0].id%>' type="button" class="btn btn-primary" >Enviar pregunta</a>
+      <input name="hola" type="text" >
+      <input name="idPregunta" type="hidden" value="<%=preguntas[0].id%>">
+      
+      
+      <br>
+      <br>
+      <br>
+      <button onclick="goBack()">Volver</button>
+    </div>  
+    </form>
+  </div>
+  
+</div>
+
+<script>
+function goBack() {
+    window.history.back();
+}
+</script>
+
+<% include footer %>
