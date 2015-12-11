@@ -7,6 +7,7 @@
 
 <div class="col-md-6 col-md-offset-5">
 	<h3><%=pregunta.nombre%></h3>
+    Texto: 
 	<%=pregunta.texto%>
 <br>
 </div>
@@ -55,21 +56,34 @@ Respuestas:
 
 </div>	
 
-<div class="col-md-1 col-md-offset-5">
-	<div id="barchart_values" style="width: 900px; height: 300px;">
-			<script type="text/javascript" src="/public/js/Chart.min.js"></script>
-			<div id="canvas-holder">
-			<canvas id="chart-area" width="200" height="200"></canvas>
+<div class="row row-centered">
+    <div class="col-md-5 col-centered">
+            <div id="canvas-holder">
+                <canvas id="piechart"></canvas>
 
-			<script>
-				var pieData = [
-				{value:1,color:"#0b82e7",highlight: "#0c62ab",label: "Respuesta Correcta"},
-				{value:0,color:"#0b82e7",highlight: "#0c62ab",label: "Respuesta Incorrecta"}];
-				var ctx = document.getElementById("chart-area").getContext("2d");
-				window.myPie = new Chart(ctx).Pie(pieData);	
-			</script>
-	</div>
+                <script>
+                    var data = <%-piechart%>;
+
+
+                    var ctx = document.getElementById("piechart").getContext("2d");
+                    var myPieChart = new Chart(ctx).Pie(data, {});
+                </script>
+            </div>
+    </div>
+    <div class="col-md-2 col-centered"></div>
+    <div class="col-md-5 col-centered">
+            <div id="canvas-holder">
+                <canvas id="barchart"></canvas>
+                <script>
+                    var data = <%-barra%>;
+
+
+                    var ctx = document.getElementById("barchart").getContext("2d");
+                    var myBarChart = new Chart(ctx).Bar(data, {});
+                </script>
+            </div>
+        </div>
 </div>
 
-<% include linkmenudocente %>
-<% include footer %>
+        <% include linkmenudocente %>
+        <% include footer %>
