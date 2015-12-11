@@ -27,13 +27,21 @@ module.exports = function(app) {
   });
   router.post("/docente/crearpreguntaalternativa",multipart(),  auth_docente, function(request, response, next) {
     console.log(request.files);
-    console.log(request.body);
+    console.log("formumalrio",request.body);
+
+
     queries.gestionar_pregunta.insertar_pregunta(request.body.nombrepregunta, request.body.pregunta ,'1',request.body.url_video, request.body.explicacion, request.body.idparalelo, request.body.idasignatura, request.session.name)
       .then(function(insertado_pregunta) {
-        
-        console.log("insertado:", insertado_pregunta);
-        response.redirect("back");
-        return;
+        console.log("insertado pregunta:", insertado_pregunta);
+            for(i in request.body.respuesta){
+                  queries.gestionar_pregunta.insertar_respuesta(request.body.respuesta[i],insertado_pregunta.PM_ID,"0")
+                    .then(function(insertado_respuesta) {
+                      
+                      console.log("insertado:", insertado_respuesta);
+                     
+                    })
+                  }
+   
       })
       .catch(function(error) {
         console.log(error);
@@ -42,5 +50,13 @@ module.exports = function(app) {
         //response.redirect("crearpreguntaalternativa");
         next();
       })
+
+   
+    
+     response.redirect("back");
+    return;
+      
   })
+ 
+
 }

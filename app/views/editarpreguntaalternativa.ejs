@@ -1,50 +1,39 @@
 <% include header %>
-	<h3>Editar Pregunta de Alternativa</h3>
-	<div class="row row-centered">
-		<div class="col-sm-8 col-centered">
-			<form action="" method="">
-				<label for="">Nombre Pregunta</label><br/>
-				<input type="text" value="Equivalencia MiB"><br/>
-				<label for="">Pregunta:</label><br/>
-				<input type="text" value="¿A cuanto equivale MiB?"><br/>
-				<label for="">Imagen</label><br/>
-				<input type="file" id="comprobarImagenes" onchange="checkExt()"><br/>
-				<label for="">URL Video</label><br/>
-				<input type="text" name="" id="URL" onchange="ValidarURL()"><br/>
-				<label for="">Respuestas:</label><br/>
-				<table class="table table-striped" id="tableId"style="width:100%">
-					<tr>
-						<td>Respuestas</td>
-						<td>Correcta</td> 
-						<td>Seleccionar</td>
-					</tr>
-					<tr>
-						<td>2^20[B]</td>
-						<td><input type="radio" name="" id=""></td> 
-						<td><input type="checkbox" name="" id=""></td>
-					</tr>
-					<tr>
-						<td>10^10[B]</td>
-						<td><input type="radio" name="" id=""></td> 
-						<td><input type="checkbox" name="" id=""></td>
-					</tr>
-					<tr>
-						<td>2^10[B]</td>
-					    <td><input type="radio" name="" id=""></td> 
-					    <td><input type="checkbox" name="" id=""></td>
-					</tr>
-				</table>
-				<input class="btn btn-default" type="button" value="Agregar" onclick="agregar()">
-				<input class="btn btn-default" type="button" value="Editar" onclick="editar()">
-				<input class="btn btn-default" type="button" value="Quitar"onclick="quitar()"><br/>
-				<label for="">Explicacion respuesta correcta:</label><br/>
-				<textarea name="" id="" cols="40" rows="5">Un MiB equivale a 2^20[B]</textarea><br/>
-			</form>
-			<input class="btn btn-default" type="submit" value="Editar">
-			<input class="btn btn-default" type="button" value="Volver" onclick="goBack()">
+		<div class="row row-centered">
+			<div class="col-sm-8 col-centered">
+				<form action="/docente/crearpreguntaalternativa" method="post" enctype="multipart/form-data">
+					<label for="">Nombre Pregunta</label><br/>
+					<input id="nombrepregunta" name="nombrepregunta" type="text" placeholder="Ingrese aqui por favor el nombre de la pregunta" size="40"><br/>
+					<label for="">Pregunta:</label><br/>
+					<input id="pregunta" type="text" name="pregunta" placeholder="Ingrese aqui por favor la pregunta" size="40"><br/>
+					<label for="">Imagen</label><br/>
+					<input type="file" id="comprobarImagenes" name="imagen2" onchange="checkExt()"><br/>
+					
+					<label for="">URL Video</label><br/>
+					<input id="url_video" type="text" name="url_video"  placeholder="Ingrese aqui una URL" size="40" onchange="ValidarURL()"><br/>
+					<label for="">Respuestas:</label><br/>
+					<table id="tableId" class="table table-striped" style="width:100%">
+						<tr>
+			 				<td id="1">Respuestas</td>
+							<td id="2">Correcta</td> 
+							<td id="3">Seleccionar</td>
+						</tr>	
+					</table>
+					<input class="btn btn-default" type="button" value="Agregar" onclick="agregar()">
+					<input class="btn btn-default" type="button" value="Quitar" onclick="quitar()"><br/>
+					<input type="hidden" name="idasignatura" value="<%=asignatura.idasignatura%>">
+					<input type="hidden" name="idparalelo" value="<%=asignatura.idparalelo%>">
+					<label for="">Explicacion respuesta correcta:</label><br/>
+					<textarea name="explicacion" id="explicacion" cols="40" rows="5" placeholder="Ingrese aqui la respuesta a la pregunta"></textarea><br/>
+					<input class="btn btn-default" type="submit" value="Crear Pregunta">
+					<input class="btn btn-default" type="button" value="Volver" onclick="goBack()">
+				</form>	
+			</div>
 		</div>
 	</div>
+	
 	<style>
 	textarea {resize:none;}
 	</style>
+
 <% include footer %>

@@ -1,17 +1,17 @@
 <% include header %>
 
 
-<a href="/docente/editarpa">Editar Pregunta Alternativa</a>
+<a class="col-md-3 col-md-offset-4" href="/docente/editarpa">Editar Pregunta Alternativa</a>
 <br>
-<a href="/docente/editarpd">Editar Pregunta Dicotomica</a>
+<a class="col-md-3 col-md-offset-4" href="/docente/editarpd">Editar Pregunta Dicotomica</a>
 <br>
-<a href="/docente/editarpreguntaescalalikert">Editar Pregunta Escalalikert</a>
+<a class="col-md-3 col-md-offset-4" href="/docente/editarpreguntaescalalikert">Editar Pregunta Escalalikert</a>
 <br>
-<input class="btn btn-primary" type="button" value="Volver" onclick="goBack()">
+<input class="btn btn-primary col-md-3 col-md-offset-4" type="button" value="Volver" onclick="goBack()">
 <script>
 	function goBack() {
 		window.history.back()
 	}
 </script>
-
+<% include linkmenudocente %>
 <% include footer %>

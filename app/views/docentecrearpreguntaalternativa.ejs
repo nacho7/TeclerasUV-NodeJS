@@ -3,16 +3,18 @@
 			<div class="col-sm-8 col-centered">
 				<form action="/docente/crearpreguntaalternativa" method="post" enctype="multipart/form-data">
 					<label for="">Nombre Pregunta</label><br/>
-					<input id="nombrepregunta" name="nombrepregunta" type="text" placeholder="Ingrese aqui por favor el nombre de la pregunta" size="40"><br/>
+					<input id="nombrepregunta" name="nombrepregunta" type="text" placeholder="Ingrese el nombre de la pregunta" size="40"><br/>
 					<label for="">Pregunta:</label><br/>
-					<input id="pregunta" type="text" name="pregunta" placeholder="Ingrese aqui por favor la pregunta" size="40"><br/>
+					<input id="pregunta" type="text" name="pregunta" placeholder="Ingrese la pregunta" size="40"><br/>
 					<label for="">Imagen</label><br/>
 					<input type="file" id="comprobarImagenes" name="imagen2" onchange="checkExt()"><br/>
 					
 					<label for="">URL Video</label><br/>
 					<input id="url_video" type="text" name="url_video"  placeholder="Ingrese aqui una URL" size="40" onchange="ValidarURL()"><br/>
 					<label for="">Respuestas:</label><br/>
-					<table id="tableId" class="table table-striped" style="width:100%">
+					<input type="hidden" name="idasignatura" value="<%=asignatura.idasignatura%>">
+					<input type="hidden" name="idparalelo" value="<%=asignatura.idparalelo%>">
+					<table id="tableId" name="tabla" class="table table-striped" style="width:100%">
 						<tr>
 			 				<td id="1">Respuestas</td>
 							<td id="2">Correcta</td> 
@@ -20,10 +22,8 @@
 						</tr>	
 					</table>
 					<input class="btn btn-default" type="button" value="Agregar" onclick="agregar()">
-					<input class="btn btn-default" type="button" value="Editar" onclick="editar()">
 					<input class="btn btn-default" type="button" value="Quitar" onclick="quitar()"><br/>
-					<input type="hidden" name="idasignatura" value="<%=asignatura.idasignatura%>">
-					<input type="hidden" name="idparalelo" value="<%=asignatura.idparalelo%>">
+				
 					<label for="">Explicacion respuesta correcta:</label><br/>
 					<textarea name="explicacion" id="explicacion" cols="40" rows="5" placeholder="Ingrese aqui la respuesta a la pregunta"></textarea><br/>
 					<input class="btn btn-default" type="submit" value="Crear Pregunta">

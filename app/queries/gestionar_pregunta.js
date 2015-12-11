@@ -15,5 +15,15 @@ exports.consultas = {
         TV_PARALELO_TV_DOCENTE_DOC_ID: docenteid
       })
       .save()
+  },
+
+  insertar_respuesta: function(respuesta, idpreguntamaestra, correcta) {
+    return db.TV_RESPUESTAS
+      .build({
+        RES_TEXTO: respuesta,
+        PM_ID: idpreguntamaestra,
+        PM_CORRECTA: correcta,
+      })
+      .save()
   }
 }

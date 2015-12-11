@@ -7,6 +7,11 @@
 <br>
 <a class="col-md-3 col-md-offset-4" href="/docente/crearpreguntaescalalikert/<%=asignatura.idasignatura%>/<%=asignatura.idparalelo%>">Crear Pregunta Escalalikert</a>
 <br>
-
+<input class="btn btn-primary col-md-3 col-md-offset-4" type="button" value="Volver" onclick="goBack()">
+<script>
+	function goBack() {
+		window.history.back()
+	}
+</script>
 <% include linkmenudocente %>
 <% include footer %>
