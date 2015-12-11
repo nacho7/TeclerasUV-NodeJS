@@ -5,10 +5,13 @@ var express = require('express'),
   filtro = require('../queries/preguntas.js');
   clase = require('../queries/clases.js');
   var randomstring = require("randomstring");
-module.exports = function(app) {
+  module.exports = function(app) {
 
   var bodyParser = require('body-parser');
   app.use(bodyParser.json());
+  
+
+
   app.use(bodyParser.urlencoded({
     extended: false
   }));
@@ -16,25 +19,43 @@ module.exports = function(app) {
   //router consulta las preguntas datos dela asignatura
   var code=randomstring.generate(4);   
   var clasid;
-
+  var idcla;
   router.get('/docente/seleccionar/:idasignatura/:idparalelo', auth_docente, function(request, response, next) {var idprofesor=request.session.name;
+     
      var iddocente=request.session.name;
+     var idasig = request.params.idasignatura;
+     var idpara = request.params.idparalelo;
+    
 
-     var variable = request.params.idasignatura;
 
-     //busco si existe una clase con el codigo ya creada, si existe no la creo
-     clase.consultas.buscar_una_clase(code)
+
+
+clase.consultas.insertar_una_clase(code,request.params.idparalelo, request.params.idasignatura,iddocente); 
+ 
+
+    //busco si existe una clase con el codigo ya creada, si existe no la creo
+     clase.consultas.buscar_clases()
      .then(function(clase_res){
-      console.log("la clase ya existeprimerooooo????: ",clase_res)
+      console.log("hmmmmm ",clase_res)  // 
 
-       if(clase_res == null){  // si la clase aun no existe, la agrego a la bd
-        clase.consultas.insertar_una_clase(code,request.params.idparalelo, request.params.idasignatura,iddocente);
-  
-       }
+
+      for(i in clase_res){
+
+        console.log("voy a comparar : "+clase_res[i].CLA_PASSWORD+" con : "+ code)
+        if(clase_res[i].CLA_PASSWORD == code){
+          console.log("encontre uno igual!!")
+          idcla = clase_res[i].CLA_ID;
+        }
+          
+         
+        
+      }
+
+      console.log("-------------------------------------------------------------------------------------------------------- :"+ idcla)
      })
 
         
-    console.log("la id del profe es : ----------------------------------------> " + idprofesor);
+    //console.log("la id del profe es : ----------------------------------------> " + idprofesor);
     
     preguntas.consultas.buscar_preguntas_asignatura(request.params.idasignatura, request.params.idparalelo, iddocente)
     .then(function(preguntas_res) {
@@ -54,8 +75,8 @@ module.exports = function(app) {
 
 
     response.render('docenteseleccionarpregunta', {preguntas: preguntas , 
-      idasignatura: request.params.idasignatura, 
-      idparalelo: request.params.idparalelo,
+      idasig: idasig,
+      idpara: idpara,
       codigo: code });
     })
   });

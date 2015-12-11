@@ -3,7 +3,7 @@
 <div class="row row-centered">
   <div class="col-md-8 col-centered">
     <h3><%=preguntas[0].pregtexto%></h3>
-
+    <h3> la id de la pregunta es : <%=preguntas[0].pmid%> /h
     <h3>Pregunta de tipo :<%=tipo%> </h3>
     <br>
 
@@ -34,7 +34,7 @@
     <%=preguntas[0].pmid%>/<%=codigo%>
     <br>
     <div align= "center">
-      <a  href='/docente/realizar/<%=codigo%>/<%=pregid%>/' type="button" class="btn btn-primary" >Enviar pregunta</a>
+      <a  href='/docente/realizar/<%=preguntas[0].pmid%>' type="button" class="btn btn-primary" >Enviar pregunta</a>
       <br>
       <br>
       <br>

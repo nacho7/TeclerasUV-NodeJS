@@ -8,11 +8,12 @@
     </div>
     
 
+
     <div class="container"  width=60% >
       
       <form class="tipo1" action="/buscarpalabra" method="post" >
         <label>Buscar por palabra clave </label>
-        <input type="text" name="keyword"/>
+        <input type="text" name="keyword" placeholder="First name"/>
         <input type ="hidden" name="asiidhidden" value="">
         <input type ="hidden" name="pairhidden" value=idparalelo>  
         <input type="image" onclick="submit();" src="/public/images/lupa.png" width="20px" height="20px"><br/>
@@ -63,50 +64,9 @@
     <br><br><br>
 
 
-  <div class="onoffswitch">
-    <input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="myonoffswitch" checked>
-    <label class="onoffswitch-label" for="myonoffswitch">
-        <span class="onoffswitch-inner"></span>
-        <span class="onoffswitch-switch"></span>
-    </label>
-  </div>
-  <form align="center">
-  Tiempo límite para responder:
-  <input type="time" name="usr_time">
-</form>
+ 
 
 </section>
-<div class="container">
-  
-  <a href="#ventana1" class="btn btn-primary btn-lg" data-toggle="modal" data-target=#ventana1> boton #1 </a>
 
-</div>
-<div class="ventana">
-  <div class="modal fade" id="ventana1" aria-labelledby="ventana1">
-    <div class="modal-dialog">
-      <p>lorem </p>
-
-      <div class="modal-content">
-        
-
-        <div class="modal-header">
-          <button style="button class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-          <h2 class="modal-title"> Vista Previa</h2>
-        </div>
-
-        <div class="modal-body">
-          <p>lorem ipsin</p>
-        </div>
-
-        <div class="modal-footer">
-          <button type="button" class="btn btn-default" data-id="107" data-dismiss="modal">Cerrar</button>
-        </div>
-
-      </div>  
-    </div> 
-
-  </div>
-</div>
-    
 <% include linkmenudocente %>
 <% include footer %>

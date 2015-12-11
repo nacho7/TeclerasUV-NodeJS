@@ -17,6 +17,17 @@ exports.consultas = {
 	      .save()
 	},
 
+
+
+	
+
+	buscar_clases: function() {
+      return sequelize
+      .query("select * from TV_CLASE", {replacements: [], type: sequelize.QueryTypes.SELECT} )
+    },
+
+
+
 	buscar_una_clase: function(code) {
       return sequelize
       .query("select CLA_ID from TV_CLASE where CLA_PASSWORD LIKE ? ", {replacements: [code], type: sequelize.QueryTypes.SELECT} )
