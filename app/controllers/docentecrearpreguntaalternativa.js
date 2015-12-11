@@ -32,7 +32,15 @@ module.exports = function(app) {
 
     queries.gestionar_pregunta.insertar_pregunta(request.body.nombrepregunta, request.body.pregunta ,'1',request.body.url_video, request.body.explicacion, request.body.idparalelo, request.body.idasignatura, request.session.name)
       .then(function(insertado_pregunta) {
-        
+        console.log("insertado pregunta:", insertado_pregunta);
+            for(i in request.body.respuesta){
+                  queries.gestionar_pregunta.insertar_respuesta(request.body.respuesta[i],insertado_pregunta.PM_ID,"0")
+                    .then(function(insertado_respuesta) {
+                      
+                      console.log("insertado:", insertado_respuesta);
+                     
+                    })
+                  }
    
       })
       .catch(function(error) {
@@ -42,14 +50,9 @@ module.exports = function(app) {
         //response.redirect("crearpreguntaalternativa");
         next();
       })
-       for(i in request.body.respuesta){
-                  queries.gestionar_pregunta.insertar_respuesta(request.body.respuesta[i],"1","0")
-                    .then(function(insertado_respuesta) {
-                      
-                      console.log("insertado:", insertado_respuesta);
-                     
-                    })
-    }
+
+   
+    
      response.redirect("back");
     return;
       
