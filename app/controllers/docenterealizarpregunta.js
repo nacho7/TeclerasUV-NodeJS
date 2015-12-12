@@ -19,16 +19,15 @@ module.exports = function(app) {
     //console.log(" EN EL CONTROLADOR REALIZAR PREGUNTA, RECIBO LA ID-----> "+request.params.pregunta_id)
 
     console.log("el controlador sabe que pm id es : "+request.params.pregunta_id+" y que id clase es : "+request.params.idclase)
-   preguntas.consultas.insertar_pregunta_realizada(request.params.pregunta_id,request.params.idclase);
-
-
+        preguntas.consultas.insertar_pregunta_realizada(request.params.pregunta_id, request.params.idclase).then(function (pregunta_realizada){
+    app.io.sockets.to('estudiante:'+request.session.codigoclase).emit('pregunta realizada', {pmid: request.params.pregunta_id, prid: pregunta_realizada.PR_ID});
     response.render('docentepreguntarealizada', {
       pregid : request.params.pregunta_id,
       clasid : request.params.idclase,
       idasig : request.params.idasig,
       idpara : request.params.idpara,
       titulo : request.params.pregtitulo});
-    
+        })
   });
 
   router.get('/docente/cerrar/:pregunta_id/:idclase/:idasig/:idpara', auth_docente, function(request, response, next) {

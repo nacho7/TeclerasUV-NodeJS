@@ -16,8 +16,9 @@ module.exports = function(app) {
     response.render('errorstandard', {});
   });
 
-  router.get('/estudiante/ingresaclase', auth_estudiante, function(request, response, next) {
-    response.render('estudianteingresaclase', {});
+    router.get('/estudiante/entrar', auth_estudiante, function (request, response, next) {
+        console.log(app.io);
+        response.render('estudianteingresaclase', {});
   });
 
   router.get('/estudiante/ingresado', auth_estudiante, function(request, response, next) {
