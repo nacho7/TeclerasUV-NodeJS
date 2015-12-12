@@ -20,7 +20,8 @@ var express = require('express'),
   var code=randomstring.generate(4);   
   var clasid;
   var idcla;
-  router.get('/docente/seleccionar/:idasignatura/:idparalelo', auth_docente, function(request, response, next) {var idprofesor=request.session.name;
+  router.get('/docente/seleccionar/:idasignatura/:idparalelo', auth_docente, function(request, response, next) 
+    {var idprofesor=request.session.name;
      
      var iddocente=request.session.name;
      var idasig = request.params.idasignatura;
@@ -30,34 +31,30 @@ var express = require('express'),
 
 
 
-clase.consultas.insertar_una_clase(code,request.params.idparalelo, request.params.idasignatura,iddocente); 
- 
+clase.consultas.insertar_una_clase(code,request.params.idparalelo, request.params.idasignatura,iddocente)
+.then(function(insertado){
 
-    //busco si existe una clase con el codigo ya creada, si existe no la creo
+//busco si existe una clase con el codigo ya creada, si existe no la creo
      clase.consultas.buscar_clases()
      .then(function(clase_res){
-      console.log("hmmmmm ",clase_res)  // 
+      //console.log("hmmmmm ",clase_res)  // 
 
 
       for(i in clase_res){
 
-        console.log("voy a comparar : "+clase_res[i].CLA_PASSWORD+" con : "+ code)
-        if(clase_res[i].CLA_PASSWORD == code){
-          console.log("encontre uno igual!!")
-          idcla = clase_res[i].CLA_ID;
+          //console.log("voy a comparar : "+clase_res[i].CLA_PASSWORD+" con : "+ code)
+          if(clase_res[i].CLA_PASSWORD == code){
+            console.log("encontre uno igual!!")
+            idcla = clase_res[i].CLA_ID;
+          }
+            
         }
-          
-         
-        
-      }
 
-      console.log("-------------------------------------------------------------------------------------------------------- :"+ idcla)
+      console.log("-------------------------------- :"+ idcla)
      })
 
-        
-    //console.log("la id del profe es : ----------------------------------------> " + idprofesor);
-    
-    preguntas.consultas.buscar_preguntas_asignatura(request.params.idasignatura, request.params.idparalelo, iddocente)
+
+preguntas.consultas.buscar_preguntas_asignatura(request.params.idasignatura, request.params.idparalelo, iddocente)
     .then(function(preguntas_res) {
       console.log("Preguntas del ramo/paralelo: ",preguntas_res)
 
@@ -65,30 +62,44 @@ clase.consultas.insertar_una_clase(code,request.params.idparalelo, request.param
 
 
       for(i in preguntas_res){
+          console.log("lo que tiene en imagen es"+ preguntas_res[i].PM_RUTA_IMAGEN)
           preguntas.push({
           id: preguntas_res[i].PM_ID,
           nombre: preguntas_res[i].PM_NOMBRE,
           tipo: preguntas_res[i].PM_TIPO,
+          imagen: preguntas_res[i].PM_RUTA_IMAGEN,
+          video: preguntas_res[i].PM_RUTA_VIDEO,
+          imagenxexplicacion : preguntas_res[i].PM_RUTA_IMAGEN_EXPLICACION
         })
       }
-      console.log("antes del render, asig ->>>>>>>>>>>>>>:"+request.params.idasignatura)
+      console.log("antes del render, clase id "+ idcla)
 
 
-    response.render('docenteseleccionarpregunta', {preguntas: preguntas , 
+    response.render('docenteseleccionarpregunta', {
+      preguntas: preguntas , 
       idasig: idasig,
       idpara: idpara,
-      codigo: code });
+      codigo: code,
+      idclase: idcla });
     })
+
+
+
+}); 
+ 
+
   });
 
   
   router.post('/buscarpalabra', function(request, response, next) {  
     var key= request.body.keyword;
-    var escondido = request.body.asiidhidden;
-    console.log("test hiddennnnnnnnnnnnnn "+ escondido); //texo gigante, o el texto ingresado por el usuario
+    var idasig_hidden = request.body.idasig;
+    var idpara_hidden = request.body.idpara;
+    var idcla_hidden = request.body.idcla;
+    //console.log("test hiddennnnnnnnnnnnnn "+ escondido); 
     console.log("palabra en body es : "+key);
     var iddocente=request.session.name;  
-      preguntas.consultas.buscar_preguntas_palabra(key,iddocente)
+      preguntas.consultas.buscar_preguntas_palabra(key,iddocente,idasig_hidden, idpara_hidden)
       .then(function(preguntas_res){
         console.log("los que coinciden son: ", preguntas_res);
 
@@ -101,7 +112,12 @@ clase.consultas.insertar_una_clase(code,request.params.idparalelo, request.param
         })
       }
 
-        response.render('docenteseleccionarpregunta', {preguntas: preguntas, codigo: code});
+        response.render('docenteseleccionarpregunta', {
+          preguntas: preguntas,
+          codigo: code,
+          idasig: idasig_hidden,
+          idpara: idpara_hidden,
+          idclase: idcla_hidden});
      })
 
       
@@ -110,10 +126,13 @@ clase.consultas.insertar_una_clase(code,request.params.idparalelo, request.param
 
   router.post('/buscartipo', function(request, response, next) {  
     var tipo= request.body.tipopreg;
- 
+    var idasig_hidden = request.body.idasig;
+    var idpara_hidden = request.body.idpara;
+    var idcla_hidden = request.body.idcla;
+
     console.log("el tipo  es : "+tipo);
     var iddocente=request.session.name;  
-      preguntas.consultas.buscar_preguntas_tipo(tipo,iddocente)
+      preguntas.consultas.buscar_preguntas_tipo(tipo,iddocente,idasig_hidden,idpara_hidden)
       .then(function(preguntas_res){
         console.log("los que coinciden son: ", preguntas_res);
 
@@ -125,7 +144,12 @@ clase.consultas.insertar_una_clase(code,request.params.idparalelo, request.param
           tipo: preguntas_res[i].PM_TIPO,
         })
       }
-        response.render('docenteseleccionarpregunta', {preguntas: preguntas, codigo: code});
+        response.render('docenteseleccionarpregunta', {
+          preguntas: preguntas,
+          codigo: code,
+          idasig: idasig_hidden,
+          idpara: idpara_hidden,
+          idclase: idcla_hidden});
      })
   
     });
@@ -133,11 +157,13 @@ clase.consultas.insertar_una_clase(code,request.params.idparalelo, request.param
   router.post('/buscarfecha', function(request, response, next) {  
     var firstdate= request.body.mindate;
     var lastdate= request.body.maxdate;
-
+    var idasig_hidden = request.body.idasig;
+    var idpara_hidden = request.body.idpara;
+    var idcla_hidden = request.body.idcla;
  
     console.log("min y max son: "+firstdate+" y "+lastdate);
     var iddocente=request.session.name;  
-      preguntas.consultas.buscar_preguntas_fecha(firstdate,lastdate,iddocente)
+      preguntas.consultas.buscar_preguntas_fecha(firstdate,lastdate,iddocente,idasig_hidden, idpara_hidden)
       .then(function(preguntas_res){
         console.log("los que coinciden son: ", preguntas_res);
 
@@ -149,14 +175,19 @@ clase.consultas.insertar_una_clase(code,request.params.idparalelo, request.param
           tipo: preguntas_res[i].PM_TIPO,
         })
       }
-        response.render('docenteseleccionarpregunta', {preguntas: preguntas, codigo: code});
+        response.render('docenteseleccionarpregunta', {
+          preguntas: preguntas,
+          codigo: code,
+          idasig: idasig_hidden,
+          idpara: idpara_hidden,
+          idclase: idcla_hidden});
      })
   
     });
 
 
 
-    router.get('/docente/confirm/:idpregunta', auth_docente, function(request, response, next) {var idprofesor=request.session.name;
+    router.get('/docente/confirm/:idpregunta/:idclase/:idasig/:idpara', auth_docente, function(request, response, next) {var idprofesor=request.session.name;
     var iddocente=request.session.name;
 
       
@@ -181,6 +212,9 @@ clase.consultas.insertar_una_clase(code,request.params.idparalelo, request.param
 
         }
 
+        var imagen = preguntas_res[0].PM_RUTA_IMAGEN;
+        var video= preguntas_res[0].PM_RUTA_VIDEO;
+        console.log("WHAAAAAAAAAAAAAAAAAAAAAT--->"+imagen)
           for(i in preguntas_res){
 
           if(preguntas_res[i].PM_CORRECTA == '1'){
@@ -194,6 +228,8 @@ clase.consultas.insertar_una_clase(code,request.params.idparalelo, request.param
           respuesta: preguntas_res[i].RES_TEXTO,
           correcta: preguntas_res[i].PM_CORRECTA,
           tipo: preguntas_res[i].PM_TIPO,
+          imagen: preguntas_res[i].PM_RUTA_IMAGEN,
+          video: preguntas_res[i].PM_RUTA_VIDEO
         })
         }
       }
@@ -209,22 +245,16 @@ clase.consultas.insertar_una_clase(code,request.params.idparalelo, request.param
      tipo: tipo, 
      codigo: code,
      pregid: pregid,
-     clasid: clasid});
+     clasid: clasid,
+     idasig : request.params.idasig,
+     idpara : request.params.idpara,
+     idclase: request.params.idclase,
+     imagen,
+     video});
     })
   });
 
-   router.get('/docente/realizar/:pmid/:claid', function(request, response, next) {  
-  
-    var iddocente=request.session.name;  
-    /*
-      
-
-    */
-             response.render('docenterealizarpregunta', {
-
-             });
-            
-      })
+   
     
 
 

@@ -5,29 +5,45 @@
     <div align="center" >
     <h3>Codigo clase:</h3><h1> <%=codigo%></h1>
       <h1>Lista de Preguntas</h1>
+
+      
     </div>
     
 
 
     <div class="container"  width=60% >
-      
+      <a href="/docente/menu" target="_blank"><img src="your/image" /></a>      
       <form class="tipo1" action="/buscarpalabra" method="post" >
         <label>Buscar por palabra clave </label>
-        <input type="text" name="keyword" placeholder="First name"/>
-        <input type ="hidden" name="asiidhidden" value="">
-        <input type ="hidden" name="pairhidden" value=idparalelo>  
+        <input type="text" name="keyword" placeholder="Escriba un texto" required>
+      
+        <input type="hidden" name="idasig" value=<%=idasig%> >
+        <input type="hidden" name="idpara" value=<%=idpara%> >
+        <input type="hidden" name="idcla" value=<%=idclase%> >
+
+         
         <input type="image" onclick="submit();" src="/public/images/lupa.png" width="20px" height="20px"><br/>
       </form>
       
       <form class="tipo1" action="/buscarfecha" method="post">
+
+        <input type="hidden" name="idasig" value=<%=idasig%> >
+        <input type="hidden" name="idpara" value=<%=idpara%> >
+        <input type="hidden" name="idcla" value=<%=idclase%> >
+
         <label>Buscar por fecha&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </label>
-        Desde<input type="date" name="mindate" min="2015-01-01" />   
+        Desde<input type="date" name="mindate" />   
         Hasta<input type="date" name="maxdate"  />
         <input type="image" onclick="submit();" src="/public/images/lupa.png" width="20px" height="20px"><br/>
       </form>
 
       <form class="tipo1" action="/buscartipo" method="post">
         <label> Tipo de pregunta </label>
+
+        <input type="hidden" name="idasig" value=<%=idasig%> >
+        <input type="hidden" name="idpara" value=<%=idpara%> >
+        <input type="hidden" name="idcla" value=<%=idclase%> >
+
         <select name="tipopreg">
           <option value="default">Tipo pregunta</option>
           <option value="1">Alternativas</option>
@@ -54,7 +70,7 @@
                 <a href='/docente/seleccionar/preview/<%=preguntas[i].id%>/<%=codigo%>/'><img src="/public/images/vistaprevia.png" width="30px" height="30px"></a>
             </td>
             <td align="center">
-                <a href='/docente/confirm/<%=preguntas[i].id%>'><img src="/public/images/sharelogo.png" width="30px" height="30px"></a>
+                <a href='/docente/confirm/<%=preguntas[i].id%>/<%=idclase%>/<%=idasig%>/<%=idpara%>'><img src="/public/images/sharelogo.png" width="30px" height="30px"></a>
             </td>
           </tr>
         <%}%>

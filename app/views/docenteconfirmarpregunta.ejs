@@ -3,11 +3,30 @@
 <div class="row row-centered">
   <div class="col-md-8 col-centered">
     <h3><%=preguntas[0].pregtexto%></h3>
-    <h3> la id de la pregunta es : <%=preguntas[0].pmid%> /h
+    
     <h3>Pregunta de tipo :<%=tipo%> </h3>
     <br>
 
+    <% if(preguntas[0].imagen != null){ %>
+
+        <img align="center" id="logo" src="/public/preguntas/imagenes/<%=imagen%>" alt="logo" />
+
+    <%}%>
+    
+    <% if(preguntas[0].video != null){ %>
+
+        <video width="400" controls>
+        <source src="/public/preguntas/videos/<%=video%>" type="video/mp4">
+        </video>
+    
+
+    <%}%>
+    
+
+     <br>
     <h3><%=preguntas[0].nombre%></h3>
+
+<br>
 
     <% if(preguntas[0].tipo=='1'){ %>
 
@@ -22,19 +41,28 @@
 
         <label>a) Sì</label>
         <br>
-        <label>a) No</label>
+        <label>b) No</label>
 
     <%}else{%>
-      <textarea rows="4" cols="50"></textarea>
+      <label>a) Totalmente en desacuerdo</label>
+        <br>
+        <label>b) En desacuerdo</label>
+        <br>
+        <label>c) Ni de acuerdo ni en desacuerdo</label>
+        <br>
+        <label>d) De acuerdo</label>
+        <br>
+        <label>e) Totalmente de acuerdo</label>
+        <br>
+        
     <%}%>   
 
     <h3> Correcta: <%=correcta%></h3>
     <br>
 
-    <%=preguntas[0].pmid%>/<%=codigo%>
     <br>
     <div align= "center">
-      <a  href='/docente/realizar/<%=preguntas[0].pmid%>' type="button" class="btn btn-primary" >Enviar pregunta</a>
+      <a  href='/docente/realizar/<%=preguntas[0].pmid%>/<%=idclase%>/<%=idasig%>/<%=idpara%>/<%=preguntas[0].nombre%>' type="button" class="btn btn-primary" >Enviar pregunta</a>
       <br>
       <br>
       <br>

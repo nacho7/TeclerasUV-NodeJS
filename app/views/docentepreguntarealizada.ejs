@@ -1,0 +1,29 @@
+<% include header %>
+
+<div class="row row-centered">
+  
+  <div align= "center">
+
+      <h2> Alumnos respondiendo</h2>
+      <br>
+      <h3> <%=titulo%> </h3>
+      <br>
+      <br>
+      <br>
+      
+
+       <a  href='/docente/cerrar/<%=pregid%>/<%=clasid%>/<%=idasig%>/<%=idpara%>' type="button" class="btn btn-primary" >Terminar pregunta</a>
+      <br>
+      <br>
+      <br>
+      
+    </div>  
+  
+</div>
+
+<script>
+  function goBack() {
+      window.history.back();
+  }
+  </script>
+<% include footer %>
