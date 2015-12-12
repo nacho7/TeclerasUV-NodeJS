@@ -14,24 +14,36 @@ module.exports = function(app) {
 
   //router consulta las preguntas datos dela asignatura
 
-  router.get('/docente/realizar/:idasignatura/:idparalelo', auth_docente, function(request, response, next) {
+  router.get('/docente/realizar/:pregunta_id/:idclase/:idasig/:idpara/:pregtitulo', auth_docente, function(request, response, next) {
 
-    preguntas.consultas.buscar_preguntas_asignatura(request.params.idasignatura, request.params.idparalelo)
-    .then(function(preguntas_res) {
-      console.log("Preguntas del ramo/paralelo: ",preguntas_res)
+    //console.log(" EN EL CONTROLADOR REALIZAR PREGUNTA, RECIBO LA ID-----> "+request.params.pregunta_id)
 
-      var preguntas = [];
-      for(i in preguntas_res){
-        preguntas.push({
-          id: preguntas_res[i].PM_ID,
-          nombre: preguntas_res[i].PM_NOMBRE,
-          tipo: preguntas_res[i].PM_TIPO,
-        })
-      }
+    console.log("el controlador sabe que pm id es : "+request.params.pregunta_id+" y que id clase es : "+request.params.idclase)
+   preguntas.consultas.insertar_pregunta_realizada(request.params.pregunta_id,request.params.idclase);
 
 
-    response.render('docenterealizarpregunta', {preguntas: preguntas});
-    })
+    response.render('docentepreguntarealizada', {
+      pregid : request.params.pregunta_id,
+      clasid : request.params.idclase,
+      idasig : request.params.idasig,
+      idpara : request.params.idpara,
+      titulo : request.params.pregtitulo});
+    
+  });
+
+  router.get('/docente/cerrar/:pregunta_id/:idclase/:idasig/:idpara', auth_docente, function(request, response, next) {
+
+    
+   //console.log("el controlador sabe que pm id es : "+request.params.pregunta_id+" y que id clase es : "+request.params.idclase)
+   preguntas.consultas.cerrar_pregunta_realizada(request.params.pregunta_id,request.params.idclase);
+
+
+    response.render('docentecerrarpregunta', {
+      pregid : request.params.pregunta_id,
+      clasid : request.params.idclase,
+      idasig : request.params.idasig,
+      idpara : request.params.idpara});
+    
   });
 
 }
