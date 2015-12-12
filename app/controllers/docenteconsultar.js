@@ -32,6 +32,9 @@ module.exports = function(app) {
           paralelo_id: asignaturas_res[i].PAR_ID
         })
       }
+
+      request.session.codigoclase = null;
+
       response.render('docenteconsultar', {
         asignaturas: asignaturas
       });

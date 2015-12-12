@@ -17,7 +17,7 @@ var express = require('express'),
   }));
   app.use('/', router);
   //router consulta las preguntas datos dela asignatura
-  var code=randomstring.generate(4);   
+  //var code=randomstring.generate(4);   
   var clasid;
   var idcla;
   router.get('/docente/seleccionar/:idasignatura/:idparalelo', auth_docente, function(request, response, next) 
@@ -27,7 +27,12 @@ var express = require('express'),
      var idasig = request.params.idasignatura;
      var idpara = request.params.idparalelo;
     
-
+    if(request.session.codigoclase == null){
+        var code=randomstring.generate(4);  
+        request.session.codigoclase = code;
+      }else{
+        code = request.session.codigoclase;
+      }
 
 
 
@@ -73,8 +78,7 @@ preguntas.consultas.buscar_preguntas_asignatura(request.params.idasignatura, req
         })
       }
       console.log("antes del render, clase id "+ idcla)
-
-    request.session.codigoclase = code;
+    
     response.render('docenteseleccionarpregunta', {
       preguntas: preguntas , 
       idasig: idasig,
@@ -96,6 +100,7 @@ preguntas.consultas.buscar_preguntas_asignatura(request.params.idasignatura, req
     var idasig_hidden = request.body.idasig;
     var idpara_hidden = request.body.idpara;
     var idcla_hidden = request.body.idcla;
+    code = request.session.codigoclase;
     //console.log("test hiddennnnnnnnnnnnnn "+ escondido); 
     console.log("palabra en body es : "+key);
     var iddocente=request.session.name;  
@@ -129,7 +134,7 @@ preguntas.consultas.buscar_preguntas_asignatura(request.params.idasignatura, req
     var idasig_hidden = request.body.idasig;
     var idpara_hidden = request.body.idpara;
     var idcla_hidden = request.body.idcla;
-
+    code = request.session.codigoclase;
     console.log("el tipo  es : "+tipo);
     var iddocente=request.session.name;  
       preguntas.consultas.buscar_preguntas_tipo(tipo,iddocente,idasig_hidden,idpara_hidden)
@@ -160,7 +165,7 @@ preguntas.consultas.buscar_preguntas_asignatura(request.params.idasignatura, req
     var idasig_hidden = request.body.idasig;
     var idpara_hidden = request.body.idpara;
     var idcla_hidden = request.body.idcla;
- 
+    code = request.session.codigoclase;
     console.log("min y max son: "+firstdate+" y "+lastdate);
     var iddocente=request.session.name;  
       preguntas.consultas.buscar_preguntas_fecha(firstdate,lastdate,iddocente,idasig_hidden, idpara_hidden)
@@ -189,7 +194,7 @@ preguntas.consultas.buscar_preguntas_asignatura(request.params.idasignatura, req
 
     router.get('/docente/confirm/:idpregunta/:idclase/:idasig/:idpara', auth_docente, function(request, response, next) {var idprofesor=request.session.name;
     var iddocente=request.session.name;
-
+    code=request.session.codigoclase;
       
     preguntas.consultas.buscar_preguntas_id(request.params.idpregunta)
     .then(function(preguntas_res) {
