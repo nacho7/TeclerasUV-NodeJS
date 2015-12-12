@@ -74,7 +74,7 @@ preguntas.consultas.buscar_preguntas_asignatura(request.params.idasignatura, req
       }
       console.log("antes del render, clase id "+ idcla)
 
-
+    request.session.codigoclase = code;
     response.render('docenteseleccionarpregunta', {
       preguntas: preguntas , 
       idasig: idasig,
@@ -239,18 +239,19 @@ preguntas.consultas.buscar_preguntas_asignatura(request.params.idasignatura, req
 
     
 
-    response.render('docenteconfirmarpregunta', {preguntas: preguntas,
-     letras: alphabet, 
-     correcta: correcta, 
-     tipo: tipo, 
-     codigo: code,
-     pregid: pregid,
-     clasid: clasid,
-     idasig : request.params.idasig,
-     idpara : request.params.idpara,
-     idclase: request.params.idclase,
-     imagen,
-     video});
+            response.render('docenteconfirmarpregunta', {
+                preguntas: preguntas,
+                letras: alphabet, 
+                correcta: correcta, 
+                tipo: tipo, 
+                codigo: code,
+                pregid: pregid,
+                clasid: clasid,
+                idasig : request.params.idasig,
+                idpara : request.params.idpara,
+                idclase: request.params.idclase,
+                imagen,
+                video});
     })
   });
 

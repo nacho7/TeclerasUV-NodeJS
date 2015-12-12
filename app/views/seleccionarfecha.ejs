@@ -1,8 +1,9 @@
-<select name="fecha">
-	<option value="fecha1">fecha 1</option>
-	<option value="fecha2">fecha 2</option>
-	<option value="fecha3">fecha 3</option>
+
+<select  class="col-md-3 col-md-offset-1" id="fecha" name="fecha">
+  <%for(i in fechas){%>
+	  <option value="<%=fechas[i].fechavalue%>"><%=fechas[i].fechainicioTotal%></option>
+  <%}%>
 </select>
-<input type="hidden" name="asignatura" value="0" />
-<input type="hidden" name="paralelo" value="0" />
-<input type="submit" name='submit' value='Siguiente' />
+<input type="hidden" name="asignatura" value="<%=idasignatura%>" />
+<input type="hidden" name="paralelo" value="<%=idparalelo%>" />
+<input class="btn btn-success" type="submit" name='submit' value='Siguiente' />

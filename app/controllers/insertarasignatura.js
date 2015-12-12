@@ -19,7 +19,7 @@ module.exports = function(app) {
     queries.inserts.insertar_asignatura(request.body.nombre, request.body.codigo)
       .then(function(insertado_asignatura) {
         console.log("insertado:", insertado_asignatura);
-        response.redirect("/docente/consultar");
+        response.redirect("/docente/menu");
         return;
       })
       .catch(function(error) {

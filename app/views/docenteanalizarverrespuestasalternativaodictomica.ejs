@@ -1,0 +1,89 @@
+<% include header %>
+<div class="col-md-6 col-md-offset-3">
+	<span>Pregunta de la Clase de las : <%=pregunta.clase_hora%></span>
+	</br>
+	<span>Pregunta Realizada a las : <%=pregunta.pregunta_hora%></span>
+</div>
+
+<div class="col-md-6 col-md-offset-5">
+	<h3><%=pregunta.nombre%></h3>
+    Texto: 
+	<%=pregunta.texto%>
+<br>
+</div>
+
+<div class="col-md-5 col-md-offset-4">
+	<div class="col-md-5 ">
+		<%for(i in pregunta.respuestas){%>
+			<ul>
+				<li><%=pregunta.respuestas[i]%></li>
+			</ul>
+		<%}%>
+		<br>
+		
+	</div>
+	<div class="col-md-2 ">
+			<img class src="/public/preguntas/imagenes/<%=pregunta.ruta_imagen%>" WIDTH=100 HEIGHT=180 / alt="ERROR">
+			<br>
+		</div>
+</div>
+
+<div class="col-md-12 col-md-offset-3">
+	<div class="col-md-4">
+		<span>La respuesta correcta es <span style="color:green"><%=pregunta.respuesta_correcta%></span></span>
+		<br>
+		<p>	La respuesta correcta de esta pregunta se da debido...	
+		<br>
+		<%=pregunta.explicacion%>
+		<br>
+		
+	</div>
+	<div class="col-md-6">
+		<img class="col-md-2" src="/public/preguntas/imagenesrespuesta/<%=pregunta.explicacion_imagen%>" WIDTH=100 HEIGHT=180 alt=ERROR/>
+		<br> 
+	</p>
+	</div>
+</div>
+
+<div class="col-md-6 col-md-offset-3">
+Respuestas:
+	<br>
+	<%Object.keys(pregunta.cantidad_por_respuesta).forEach(function(key){%>
+	<br>
+	<%=key%>: 
+	<%=pregunta.cantidad_por_respuesta[key]%> Veces
+	<%})%>
+
+</div>	
+
+<div class="row row-centered">
+    <div class="col-md-5 col-centered">
+            <div id="canvas-holder">
+                <canvas id="piechart"></canvas>
+
+                <script>
+                    var data = <%-piechart%>;
+
+
+                    var ctx = document.getElementById("piechart").getContext("2d");
+                    var myPieChart = new Chart(ctx).Pie(data, {});
+                </script>
+            </div>
+    </div>
+    <div class="col-md-2 col-centered"></div>
+    <div class="col-md-5 col-centered">
+            <div id="canvas-holder">
+                <canvas id="barchart"></canvas>
+                <script>
+                    var data = <%-barra%>;
+
+
+                    var ctx = document.getElementById("barchart").getContext("2d");
+                    var myBarChart = new Chart(ctx).Bar(data, {});
+                </script>
+            </div>
+        </div>
+</div>
+
+        <% include linkmenudocente %>
+        <% include footer %>

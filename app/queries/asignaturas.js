@@ -12,10 +12,10 @@ exports.consultas = {
     },
     buscar_una_asignatura: function(asignaturaid, paraleloid) {
       return sequelize
-      .query("select TV_ASIGNATURA.ASI_ID as ASI_ID, ASI_NOMBRE, ASI_CODIGO, TV_PARALELO.PAR_NUMERO as PAR_NUMERO, TV_PARALELO.TV_DOCENTE_DOC_ID from TV_ASIGNATURA inner join TV_PARALELO on TV_PARALELO.ASI_ID=TV_ASIGNATURA.ASI_ID where TV_ASIGNATURA.ASI_ID=? and TV_PARALELO.PAR_NUMERO=?", {replacements: [asignaturaid, paraleloid], type: sequelize.QueryTypes.SELECT} )
+      .query("select TV_ASIGNATURA.ASI_ID as ASI_ID, ASI_NOMBRE, ASI_CODIGO, TV_PARALELO.PAR_NUMERO as PAR_NUMERO, TV_PARALELO.TV_DOCENTE_DOC_ID, TV_PARALELO.PAR_ID as PAR_ID from TV_ASIGNATURA inner join TV_PARALELO on TV_PARALELO.ASI_ID=TV_ASIGNATURA.ASI_ID where TV_ASIGNATURA.ASI_ID=? and TV_PARALELO.PAR_NUMERO=?", {replacements: [asignaturaid, paraleloid], type: sequelize.QueryTypes.SELECT} )
     },
     buscar_asignaturas_profesor: function(docid) {
       return sequelize
-      .query("select TV_ASIGNATURA.ASI_ID as ASI_ID, ASI_NOMBRE, ASI_CODIGO, TV_PARALELO.PAR_NUMERO as PAR_NUMERO, TV_PARALELO.TV_DOCENTE_DOC_ID from TV_ASIGNATURA inner join TV_PARALELO on TV_PARALELO.ASI_ID=TV_ASIGNATURA.ASI_ID where TV_PARALELO.TV_DOCENTE_DOC_ID=?", {replacements: [docid], type: sequelize.QueryTypes.SELECT} )
+      .query("select TV_ASIGNATURA.ASI_ID as ASI_ID, ASI_NOMBRE, ASI_CODIGO, TV_PARALELO.PAR_NUMERO as PAR_NUMERO, TV_PARALELO.TV_DOCENTE_DOC_ID, TV_PARALELO.PAR_ID as PAR_ID from TV_ASIGNATURA inner join TV_PARALELO on TV_PARALELO.ASI_ID=TV_ASIGNATURA.ASI_ID where TV_PARALELO.TV_DOCENTE_DOC_ID=?", {replacements: [docid], type: sequelize.QueryTypes.SELECT} )
     }
   }

@@ -1,0 +1,15 @@
+<% include header %>
+
+<h3>Codigo "<%= codigo %>"<br/>Esperando pregunta...</h3>
+
+<script type="text/javascript">
+    var socket = io.connect('http://localhost:3000');
+    socket.emit('join', {codigo: "<%= codigo %>", tipo: "estudiante"});
+
+    socket.on("pregunta realizada", function(data) {7
+        console.log(data);
+        alert("pmid: ",data.pmid, "prid:", data.prid);
+    });
+</script>
+
+<% include footer %>

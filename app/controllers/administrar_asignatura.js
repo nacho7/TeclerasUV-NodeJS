@@ -69,6 +69,6 @@ Recordar: post recibe en request.body*/
      y luego en el get del otro lado las usan simplemente, como si nada,
      ejemplo:
       usando = mivar;*/
-    response.redirect("/docente/consultar");
+    response.redirect("/docente/menu");
   })
 }

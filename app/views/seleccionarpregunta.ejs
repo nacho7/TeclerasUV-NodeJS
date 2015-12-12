@@ -1,9 +1,8 @@
-<select name="pregunta">
-	<!--acá va un for-->
-	<option value="pregunta1">pregunta 1</option>
-	<option value="pregunta2">pregunta 2</option>
-	<option value="pregunta3">pregunta 3</option>
+<select class="col-md-3 col-md-offset-1" name="pregunta">
+    <%for(i in preguntas){%>
+    <option value="<%=preguntas[i].idpregunta%>"><%=preguntas[i].nombre%></option>
+    <%}%>
 </select>
-<input type="hidden" name="asignatura" value="0" />
-<input type="hidden" name="paralelo" value="0" />
-<input type="submit" name='submit' value='Siguiente' />
+<input type="hidden" name="asignatura" value="<%=idasignatura%>" />
+<input type="hidden" name="paralelo" value="<%=idparalelo%>" />
+<input class="btn btn-success" type="submit" name='submit' value='Siguiente' />
