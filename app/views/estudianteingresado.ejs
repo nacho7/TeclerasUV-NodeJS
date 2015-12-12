@@ -8,7 +8,7 @@
 
     socket.on("pregunta realizada", function(data) {7
         console.log(data);
-        alert("pmid: ",data.pmid, "prid:", data.prid);
+        window.location = "/estudiante/realizarpregunta/" + data.pmid + "/" + data.prid;
     });
 </script>
 
