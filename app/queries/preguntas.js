@@ -29,6 +29,12 @@ exports.consultas = {
       .query("select * from TV_PREGUNTA_MAESTRA inner join TV_RESPUESTAS on TV_PREGUNTA_MAESTRA.PM_ID=TV_RESPUESTAS.PM_ID and TV_PREGUNTA_MAESTRA.PM_ID =?", {replacements: [pregid], type: sequelize.QueryTypes.SELECT} )
     },
 
+    contar_respuestas_id: function(pmid,claid) {
+      return sequelize
+      .query("select * from TV_PREGUNTA_REALIZADA inner join TV_PREGUNTA_RESPONDIDA on TV_PREGUNTA_REALIZADA.PR_ID=TV_PREGUNTA_RESPONDIDA.PR_ID where PM_ID=? and CLA_ID=? and PR_HORA_FIN is NULL", {replacements: [pmid,claid], type: sequelize.QueryTypes.SELECT} )
+    },
+
+
     insertar_pregunta_realizada: function(pmid, claid) {
         return db.TV_PREGUNTA_REALIZADA
           .build({
