@@ -40,7 +40,7 @@ module.exports = function(app) {
   auth_docente, function(request, response, next) {
     
 
-preguntas.consultas.contar_respuestas_id(request.params.pregunta_id,request.params.idclase)
+preguntas.consultas.contar_respuestas(request.params.pregunta_id,request.params.idclase)
 .then(function(preguntas_res){
         console.log("los que coinciden son: ", preguntas_res);
 
@@ -48,28 +48,28 @@ preguntas.consultas.contar_respuestas_id(request.params.pregunta_id,request.para
         for(i in preguntas_res){
         contador++;
       }
-//-------------
 
+        preguntas.consultas.contar_asistencia(request.params.idclase)
+        .then(function(preguntas2_res){
+               console.log("los que coinciden son: ", preguntas2_res);
 
+                var contador2=0;
+                for(i in preguntas2_res){
+                contador2++;
+              }
+      
+                response.render('docentepreguntarealizada', {
+                pregid : request.params.pregunta_id, 
+                clasid : request.params.idclase,
+                idasig : request.params.idasig,
+                idpara : request.params.idpara,
+                titulo : request.params.pregtitulo,
+                contador,
+                asistencia: contador2});
+             })
 
+      })
 
-
-
-
-
-
-
-
-//-----
-        response.render('docentepreguntarealizada', {
-        pregid : request.params.pregunta_id, 
-        clasid : request.params.idclase,
-        idasig : request.params.idasig,
-        idpara : request.params.idpara,
-        titulo : request.params.pregtitulo,
-        contador});
-     })
-   
   });
 
 
