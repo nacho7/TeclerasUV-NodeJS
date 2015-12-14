@@ -12,8 +12,14 @@ module.exports = function(app) {
   }));
   app.use('/', router);
 
-  router.get('/docente/editarpd', auth_docente, function(request, response, next) {
+  router.get('/docente/eliminarpregunta/:idasignatura/:idparalelo', auth_docente, function(request, response, next) {
     console.log("id usuario:",request.session.name, "tipo:", request.session.tipo);
-    response.render('editarpreguntadicotomica', {});
+    asignatura ={
+        idasignatura: request.params.idasignatura, 
+        idparalelo: request.params.idparalelo
+    }
+    response.render('docenteeliminarpregunta', {
+                      asignatura: asignatura
+    });
   });
 }

@@ -13,6 +13,12 @@ module.exports = function(app) {
   app.use('/', router);
 
   router.get('/docente/gestionar/:idasignatura/:idparalelo', auth_docente, function(request, response, next) {
-    response.render('docentegestionarrespuesta', {});
+    asignatura ={
+        idasignatura: request.params.idasignatura, 
+        idparalelo: request.params.idparalelo
+    }
+    response.render('docentegestionarpregunta', {
+                      asignatura: asignatura
+    });
   });
 }

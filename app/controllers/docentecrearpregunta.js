@@ -11,9 +11,15 @@ module.exports = function(app) {
     extended: false
   }));
   app.use('/', router);
-
-  router.get('/docente/crearpregunta', auth_docente, function(request, response, next) {
+  
+  router.get('/docente/crearpregunta/:idasignatura/:idparalelo', auth_docente, function(request, response, next) {
     console.log("id usuario:",request.session.name, "tipo:", request.session.tipo);
-    response.render('docentecrearpregunta', {});
+    asignatura ={
+        idasignatura: request.params.idasignatura, 
+        idparalelo: request.params.idparalelo
+    }
+    response.render('docentecrearpregunta', {
+                      asignatura: asignatura
+    });
   });
 }

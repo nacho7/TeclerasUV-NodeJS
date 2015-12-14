@@ -1,0 +1,28 @@
+<% include header %>
+<div class="row row-centered">
+  <div class="col-md-8 col-centered">
+   <h2> Eliminar preguntas </h2><br>
+  </div>
+</div>
+<table class="table table-striped">
+    <tr>
+      <td>Nombre</td>
+      <td>Pregunta</td>
+      <td>Explicación</td>
+      <td></td>
+    </tr>
+    <%for(i in preguntas){%>
+    <tr>
+      <td><%=preguntas[i].nombre%></td>
+      <td><%=preguntas[i].pregunta%></td>
+      <td><%=preguntas[i].explicacion%></td>
+      <td><a href='/docente/eliminarpreguntasel/<%=preguntas[i].idasignatura%>/<%=preguntas[i].idparalelo%>/<%=preguntas[i].tipo%>/<%=preguntas[i].id%>'>Eliminar</a></td>
+    </tr>
+    <%}%>
+</table>
+
+<form class="" action="/signout" method="post">
+  <input class=" col-md-2 col-md-offset-5 btn btn-danger " type="submit" name="sign out" value="Sign out"></div>
+</form>
+<% include linkmenudocente %>
+<% include footer %>
