@@ -67,6 +67,15 @@ preguntas.consultas.buscar_preguntas_asignatura(request.params.idasignatura, req
 
 
       for(i in preguntas_res){
+
+
+        if(preguntas_res[i].PM_TIPO =='2')
+          preguntas_res[i].PM_TIPO = 'Dicotómica';
+        else if(preguntas_res[i].PM_TIPO =='1')
+          preguntas_res[i].PM_TIPO = 'Dicotómica';
+        else
+          preguntas_res[i].PM_TIPO = 'Escala de Likert';
+
           console.log("lo que tiene en imagen es"+ preguntas_res[i].PM_RUTA_IMAGEN)
           preguntas.push({
           id: preguntas_res[i].PM_ID,

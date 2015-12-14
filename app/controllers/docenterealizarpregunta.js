@@ -25,13 +25,14 @@ module.exports = function(app) {
     
 
     var contador=0;
+    var asistencia = 0;
     response.render('docentepreguntarealizada', {
       pregid : request.params.pregunta_id,
       clasid : request.params.idclase,
       idasig : request.params.idasig,
       idpara : request.params.idpara,
       titulo : request.params.pregtitulo,
-      contador});
+      contador,asistencia});
         })
   });
 
@@ -52,12 +53,12 @@ preguntas.consultas.contar_respuestas(request.params.pregunta_id,request.params.
         preguntas.consultas.contar_asistencia(request.params.idclase)
         .then(function(preguntas2_res){
                console.log("los que coinciden son: ", preguntas2_res);
-
+ 
                 var contador2=0;
                 for(i in preguntas2_res){
-                contador2++;
+                contador2++;                          
               }
-      
+                
                 response.render('docentepreguntarealizada', {
                 pregid : request.params.pregunta_id, 
                 clasid : request.params.idclase,
