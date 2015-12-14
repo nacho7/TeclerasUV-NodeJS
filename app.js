@@ -46,8 +46,11 @@ function mensajesasincronos(io) {
     
     io.on('connection', function (socket) {
         socket.on('join', function (data) {
+            console.log(data);
             if (data.tipo == "estudiante") {
                 socket.join("estudiante:" + data.codigo);
+            } else if (data.tipo == "docente") {
+                socket.join("docente:" + data.codigo);
             }
         });
     });

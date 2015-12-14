@@ -29,79 +29,79 @@ var express = require('express'),
     
     if(request.session.codigoclase == null){
         var code=randomstring.generate(4);  
-        request.session.codigoclase = code;
+            request.session.codigoclase = code;
+            clase.consultas.insertar_una_clase(code, request.params.idparalelo, request.params.idasignatura, iddocente)
+.then(claseyainsertada);
       }else{
-        code = request.session.codigoclase;
+            code = request.session.codigoclase;
+            claseyainsertada(undefined);
       }
 
 
 
-clase.consultas.insertar_una_clase(code,request.params.idparalelo, request.params.idasignatura,iddocente)
-.then(function(insertado){
-
-//busco si existe una clase con el codigo ya creada, si existe no la creo
-     clase.consultas.buscar_clases()
-     .then(function(clase_res){
-      //console.log("hmmmmm ",clase_res)  // 
-
-
-      for(i in clase_res){
-
-          //console.log("voy a comparar : "+clase_res[i].CLA_PASSWORD+" con : "+ code)
-          if(clase_res[i].CLA_PASSWORD == code){
-            console.log("encontre uno igual!!")
-            idcla = clase_res[i].CLA_ID;
-          }
+        
+        function claseyainsertada(claseinsertada) {
+            //busco si existe una clase con el codigo ya creada, si existe no la creo
+            clase.consultas.buscar_clases()
+     .then(function (clase_res) {
+                //console.log("hmmmmm ",clase_res)  // 
+                
+                
+                for (i in clase_res) {
+                    
+                    //console.log("voy a comparar : "+clase_res[i].CLA_PASSWORD+" con : "+ code)
+                    if (clase_res[i].CLA_PASSWORD == code) {
+                        console.log("encontre uno igual!!")
+                        idcla = clase_res[i].CLA_ID;
+                    }
             
+                }
+                
+                console.log("-------------------------------- :" + idcla)
+            })
+            
+            
+            preguntas.consultas.buscar_preguntas_asignatura(request.params.idasignatura, request.params.idparalelo, iddocente)
+    .then(function (preguntas_res) {
+                console.log("Preguntas del ramo/paralelo: ", preguntas_res)
+                
+                var preguntas = [];
+                
+                
+                for (i in preguntas_res) {
+                    
+                    
+                    if (preguntas_res[i].PM_TIPO == '2')
+                        preguntas_res[i].PM_TIPO = 'Dicotómica';
+                    else if (preguntas_res[i].PM_TIPO == '1')
+                        preguntas_res[i].PM_TIPO = 'Alternativa';
+                    else
+                        preguntas_res[i].PM_TIPO = 'Escala de Likert';
+                    
+                    console.log("lo que tiene en imagen es" + preguntas_res[i].PM_RUTA_IMAGEN)
+                    preguntas.push({
+                        id: preguntas_res[i].PM_ID,
+                        nombre: preguntas_res[i].PM_NOMBRE,
+                        tipo: preguntas_res[i].PM_TIPO,
+                        imagen: preguntas_res[i].PM_RUTA_IMAGEN,
+                        video: preguntas_res[i].PM_RUTA_VIDEO,
+                        imagenxexplicacion : preguntas_res[i].PM_RUTA_IMAGEN_EXPLICACION
+                    })
+                }
+                console.log("antes del render, clase id " + idcla)
+                
+                response.render('docenteseleccionarpregunta', {
+                    preguntas: preguntas , 
+                    idasig: idasig,
+                    idpara: idpara,
+                    codigo: code,
+                    idclase: idcla
+                });
+            })
+
         }
 
-      console.log("-------------------------------- :"+ idcla)
-     })
-
-
-preguntas.consultas.buscar_preguntas_asignatura(request.params.idasignatura, request.params.idparalelo, iddocente)
-    .then(function(preguntas_res) {
-      console.log("Preguntas del ramo/paralelo: ",preguntas_res)
-
-      var preguntas = [];
-
-
-      for(i in preguntas_res){
-
-
-        if(preguntas_res[i].PM_TIPO =='2')
-          preguntas_res[i].PM_TIPO = 'Dicotómica';
-        else if(preguntas_res[i].PM_TIPO =='1')
-          preguntas_res[i].PM_TIPO = 'Dicotómica';
-        else
-          preguntas_res[i].PM_TIPO = 'Escala de Likert';
-
-          console.log("lo que tiene en imagen es"+ preguntas_res[i].PM_RUTA_IMAGEN)
-          preguntas.push({
-          id: preguntas_res[i].PM_ID,
-          nombre: preguntas_res[i].PM_NOMBRE,
-          tipo: preguntas_res[i].PM_TIPO,
-          imagen: preguntas_res[i].PM_RUTA_IMAGEN,
-          video: preguntas_res[i].PM_RUTA_VIDEO,
-          imagenxexplicacion : preguntas_res[i].PM_RUTA_IMAGEN_EXPLICACION
-        })
-      }
-      console.log("antes del render, clase id "+ idcla)
-    
-    response.render('docenteseleccionarpregunta', {
-      preguntas: preguntas , 
-      idasig: idasig,
-      idpara: idpara,
-      codigo: code,
-      idclase: idcla });
-    })
-
-
-
 }); 
- 
-
-  });
 
   
   router.post('/buscarpalabra', function(request, response, next) {  

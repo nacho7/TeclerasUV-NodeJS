@@ -25,14 +25,20 @@ module.exports = function(app) {
     
 
     var contador=0;
-    var asistencia = 0;
+            var asistencia = 0;
+            response.redirect("/docente/count/" + request.params.pregunta_id + "/" + request.params.idclase + "/" + request.params.idasig + "/" + request.params.idpara + "/" + request.params.pregtitulo);
+          /* 
     response.render('docentepreguntarealizada', {
       pregid : request.params.pregunta_id,
       clasid : request.params.idclase,
       idasig : request.params.idasig,
-      idpara : request.params.idpara,
+                idpara : request.params.idpara,
+                codigo: request.session.codigoclase,
       titulo : request.params.pregtitulo,
-      contador,asistencia});
+      contador: contador,
+      asistencia: asistencia
+            });
+    */
         })
   });
 
@@ -64,8 +70,9 @@ preguntas.consultas.contar_respuestas(request.params.pregunta_id,request.params.
                 clasid : request.params.idclase,
                 idasig : request.params.idasig,
                 idpara : request.params.idpara,
-                titulo : request.params.pregtitulo,
-                contador,
+                    titulo : request.params.pregtitulo,
+                    codigo: request.session.codigoclase,
+                contador: contador,
                 asistencia: contador2});
              })
 

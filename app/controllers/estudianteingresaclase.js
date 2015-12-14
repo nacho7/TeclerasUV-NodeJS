@@ -17,7 +17,6 @@ module.exports = function(app) {
   });
 
     router.get('/estudiante/entrar', auth_estudiante, function (request, response, next) {
-        console.log(app.io);
         response.render('estudianteingresaclase', {});
   });
 
@@ -29,11 +28,30 @@ module.exports = function(app) {
         info = info_clase[0].CLA_PASSWORD;
         var id_clase = info_clase[0].CLA_ID;
         console.log("id usuario:",info);
-        /*to do - Buscar en TV_ASISTENCIA_CLASE si existe el id alumno e id clase para saber si asistio o no*/
-        queries.get_tv_clase_password.insertar_asistencia(request.session.name,id_clase).then(function(result_asistencia){
-         console.log(result_asistencia);
-       })
-        response.render('estudianteingresado', {codigo:info});
+                /*to do - Buscar en TV_ASISTENCIA_CLASE si existe el id alumno e id clase para saber si asistio o no*/
+                queries.get_tv_clase_password.buscar_asistencia(request.session.name, id_clase).then(function (estudiante_asistio){
+                    if (estudiante_asistio.length > 0) {
+                        return
+                    } else {
+                        queries.get_tv_clase_password.insertar_asistencia(request.session.name, id_clase).then(function (result_asistencia) {
+                            console.log("insertado: ",result_asistencia);
+                        })
+                    }
+                    
+                })
+        
+                queries.get_tv_clase_password.buscar_pregunta_realizada(id_clase).then(function (preguntarealizada) {
+                    console.log("pregunta realizada: ", preguntarealizada)
+                    app.io.sockets.to('docente:' + info).emit('actualizar pagina', {});
+                    if (preguntarealizada.length > 0) {
+                        response.redirect("/estudiante/realizarpregunta/" + preguntarealizada[0].PM_ID + " / " + preguntarealizada[0].PR_ID)
+                    } else {
+                        response.render('estudianteingresado', { codigo: info });
+                    }
+        
+                
+        })
+        
       }else{
         info = '';
         response.render('errorstandard', {message : 'Error de password'});
