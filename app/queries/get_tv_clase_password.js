@@ -21,5 +21,6 @@ exports.consultas = {
     buscar_asistencia: function (id_estudiante, id_clase) {
         return sequelize
     .query("SELECT EST_ID, CLA_ID FROM TV_ASISTENCIA_CLASE WHERE EST_ID=? AND CLA_ID=?", { replacements: [id_estudiante, id_clase], type: sequelize.QueryTypes.SELECT })
-    }
+     }
   }
+  //mñé
