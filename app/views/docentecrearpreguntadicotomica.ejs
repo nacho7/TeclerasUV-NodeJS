@@ -1,18 +1,11 @@
 <% include header %>
 
-
-<h1>Crear Pregunta Dicotomica</h1>
-
-<form>
-  Nombre pregunta:<br>
-  <input type="text" name="nombrePregunta">
-  <br>
-  Pregunta:<br>
-  <textarea class="form-control" rows="5" name="pregunta"></textarea>
-  <br><br>
-  <button type="button">Volver</button>
-  <input type="submit" value="Editar"> 
-</form>
-
+	<div class="row row-centered">
+		<div class="col-sm-8 col-centered">
+			<h1>Crear Pregunta Dicotomica</h1>
+			<input class="btn btn-default" type="submit" value="Crear Pregunta">
+			<input class="btn btn-default" type="button" value="Volver" onclick="goBack()">
+		</div>
+	</div>
 
 <% include footer %>
