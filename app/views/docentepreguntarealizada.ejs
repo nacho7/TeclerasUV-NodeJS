@@ -1,0 +1,38 @@
+<% include header %>
+
+<div class="row row-centered">
+  
+  <div align= "center">
+
+      <h2> Alumnos respondiendo</h2>
+      <br><h3>Numero de alumnos que han resp%ondido : <%=contador%> / <%=asistencia%> </h3>
+      <h3> <%=titulo%> </h3>
+      <br>
+      <br>
+      <br>
+      <a  href='/docente/count/<%=pregid%>/<%=clasid%>/<%=idasig%>/<%=idpara%>/<%=titulo%>' type="button" class="btn btn-primary" > Contar respuestas </a>
+      <br><br><br><br><br><br><br>
+      
+
+       <a  href='/docente/cerrar/<%=pregid%>/<%=clasid%>/<%=idasig%>/<%=idpara%>' type="button" class="btn btn-primary" >Terminar pregunta</a>
+      <br>
+      <br>
+      <br>
+      
+    </div>  
+  
+</div>
+
+<script>
+    var socket = io.connect('http://localhost:3000');
+    socket.emit('join', { codigo: "<%= codigo %>", tipo: "docente" });
+
+    socket.on("actualizar pagina", function (data) {
+        console.log(data);
+        window.location = '/docente/count/<%=pregid%>/<%=clasid%>/<%=idasig%>/<%=idpara%>/<%=titulo%>';
+    });
+  function goBack() {
+      window.history.back();
+  }
+  </script>
+<% include footer %>

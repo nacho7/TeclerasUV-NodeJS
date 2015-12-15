@@ -17,9 +17,24 @@ exports.consultas = {
 	      .save()
 	},
 
-	buscar_una_clase: function(code,asiid, parid,docid) {
+	insertar_una_clase2: function(code,parid,assid,docid) {
       return sequelize
-      .query("select * from TV_CLASE where CLA_PASSWORD=? and PAR_ID=? and DOC_ID=? and ASI_ID=?", {replacements: [code,asiid,parid,docid], type: sequelize.QueryTypes.SELECT} )
+      .query("insert into TV_CLASE (CLA_PASSWORD,CLA_FECHA_HORA_INICIO,PAR_ID,ASI_ID,ASI_ID,DOC_ID) values (?,NOW(),?,?,?)", {replacements: [code,parid,assid,docid], type: sequelize.QueryTypes.SELECT} )
+    },
+
+
+	
+
+	buscar_clases: function() {
+      return sequelize
+      .query("select * from TV_CLASE", {replacements: [], type: sequelize.QueryTypes.SELECT} )
+    },
+
+
+
+	buscar_una_clase: function(code) {
+      return sequelize
+      .query("select CLA_ID from TV_CLASE where CLA_PASSWORD LIKE ? ", {replacements: [code], type: sequelize.QueryTypes.SELECT} )
     }
 
 }
