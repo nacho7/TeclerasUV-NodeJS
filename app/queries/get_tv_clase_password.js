@@ -13,6 +13,14 @@ exports.consultas = {
           CLA_ID: id_clase
         })
         .save()
-    }
+    },
+    buscar_pregunta_realizada: function (claid){
+        return sequelize
+    .query("select PR_ID, PM_ID, CLA_ID FROM TV_PREGUNTA_REALIZADA where CLA_ID=? and PR_HORA_FIN is null", {replacements: [claid], type: sequelize.QueryTypes.SELECT})
+    },
+    buscar_asistencia: function (id_estudiante, id_clase) {
+        return sequelize
+    .query("SELECT EST_ID, CLA_ID FROM TV_ASISTENCIA_CLASE WHERE EST_ID=? AND CLA_ID=?", { replacements: [id_estudiante, id_clase], type: sequelize.QueryTypes.SELECT })
+     }
   }
   //mñé

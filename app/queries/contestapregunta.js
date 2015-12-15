@@ -4,7 +4,7 @@ var sequelize = require("../models/sequelize.js")
 exports.consultas = {
     buscar_pregunta_realizada_prid: function(prid) {
       return sequelize
-      .query("select * from TV_PREGUNTA_REALIZADA where PR_ID=?", {replacements: [prid], type: sequelize.QueryTypes.SELECT} )
+      .query("select * from TV_PREGUNTA_REALIZADA where PR_ID=? AND PR_HORA_FIN is null", {replacements: [prid], type: sequelize.QueryTypes.SELECT} )
     },
     buscar_pregunta_maestra_pmid: function(pmid) {
       return sequelize
@@ -23,5 +23,9 @@ exports.consultas = {
           PRES_LIKERT: pres_likert
         })
         .save()
+    },
+    buscar_pregunta_respondida_por_estudiante: function(prid, estid) {
+      return sequelize
+      .query("select * from TV_PREGUNTA_RESPONDIDA where PR_ID=? AND EST_ID=?", {replacements: [prid, estid], type: sequelize.QueryTypes.SELECT} )
     }
   }

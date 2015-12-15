@@ -86,7 +86,7 @@ preguntas.consultas.contar_respuestas(request.params.pregunta_id,request.params.
 
   router.get('/docente/cerrar/:pregunta_id/:idclase/:idasig/:idpara', auth_docente, function(request, response, next) {
 
-    
+    app.io.sockets.to('estudiante:'+request.session.codigoclase).emit('pregunta cerrada', {});
    //console.log("el controlador sabe que pm id es : "+request.params.pregunta_id+" y que id clase es : "+request.params.idclase)
    preguntas.consultas.cerrar_pregunta_realizada(request.params.pregunta_id,request.params.idclase);
 
