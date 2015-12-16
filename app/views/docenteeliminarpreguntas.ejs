@@ -4,6 +4,9 @@
    <h2> Eliminar preguntas </h2><br>
   </div>
 </div>
+<br>
+<hr>
+<div class="row row-centered">
 <table class="table table-striped">
     <tr>
       <td>Nombre</td>
@@ -16,13 +19,13 @@
       <td><%=preguntas[i].nombre%></td>
       <td><%=preguntas[i].pregunta%></td>
       <td><%=preguntas[i].explicacion%></td>
-      <td><a href='/docente/eliminarpreguntasel/<%=preguntas[i].idasignatura%>/<%=preguntas[i].idparalelo%>/<%=preguntas[i].tipo%>/<%=preguntas[i].id%>'>Eliminar</a></td>
+      <td><a href='/docente/eliminarpreguntasel/<%=preguntas[i].idasignatura%>/<%=preguntas[i].idparalelo%>/<%=preguntas[i].tipo%>/<%=preguntas[i].id%>' onclick="return confirm('¿Estás seguro?')">Eliminar</a></td>
     </tr>
     <%}%>
 </table>
-
-<form class="" action="/signout" method="post">
-  <input class=" col-md-2 col-md-offset-5 btn btn-danger " type="submit" name="sign out" value="Sign out"></div>
-</form>
+</div>
+<br>
+<hr>
+<% include volver %>
 <% include linkmenudocente %>
 <% include footer %>

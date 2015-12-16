@@ -50,11 +50,33 @@ module.exports = function(app) {
   router.post("/docente/editarpreguntaalternativa", multipart(), auth_docente, function(request, response, next) {
     console.log(request.files)
     console.log("formulario",request.body)
-    
-    queries.gestionar_pregunta.actualizar_pregunta(request.body.idpregunta, request.body.nombrepregunta, request.body.pregunta,request.body.url_video,"", request.body.explicacion)
+    asignatura={
+          idasignatura: request.body.idasignatura,
+          idparalelo: request.body.idparalelo
+        }  
+    queries.gestionar_pregunta.actualizar_pregunta(request.body.idpregunta, request.body.nombrepregunta, request.body.pregunta,request.body.url_video,request.files.imagen2.path, request.body.explicacion)
       .then(function(actualizar_pregunta) {
-        console.log("insertado pregunta:", actualizar_pregunta)
+        console.log("actualizado pregunta:", actualizar_pregunta)
+      queries.gestionar_pregunta.eliminar_respuesta(request.body.idpregunta).then(function(eliminar_respuesta) {
+        console.log("respuestas eliminadas: ", eliminar_respuesta)
+        console.log("respuestas ", request.body.respuesta)
+        console.log("correctas",request.body.correctas)
+        for(i in request.body.respuesta){ 
+                  queries.gestionar_pregunta.insertar_respuesta(request.body.respuesta[i],request.body.idpregunta,request.body.correctas[i])
+                    .then(function(insertado_respuesta) {
+                    console.log("insertado respuesta:", insertado_respuesta);
+                  })
+
+      }
+            response.render("docenteeditarpreguntaalternativasuccess",{
+            asignatura: asignatura
+        })
+            // response.redirect("/docente/editarpreguntaalternativa/success")
+            // return
+      
       })
+      
+    })
       .catch(function(error) {
         console.log(error)
         /*Como ven, acá hay dos redirect, pero no se ejecutan uno y después el otro, ya que cuando entra a un callback, el flujo de ejecución cambia
@@ -62,9 +84,6 @@ module.exports = function(app) {
         //response.redirect("crearpreguntaalternativa");
         next()
       })
-      
-     response.redirect("back")
-    return
-      
+   
   })
 }

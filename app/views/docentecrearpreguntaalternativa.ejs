@@ -1,7 +1,7 @@
 <% include header %>
 		<div class="row row-centered">
 			<div class="col-sm-8 col-centered">
-				<form action="/docente/crearpreguntaalternativa" method="post" enctype="multipart/form-data">
+				<form action="/docente/crearpreguntaalternativa" method="post" enctype="multipart/form-data" onsubmit="return formulario(this)">
 					<label for="">Nombre Pregunta</label><br/>
 					<input id="nombrepregunta" name="nombrepregunta" type="text" placeholder="Ingrese el nombre de la pregunta" size="40"><br/>
 					<label for="">Pregunta:</label><br/>

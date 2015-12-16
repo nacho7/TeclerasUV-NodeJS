@@ -1,17 +1,18 @@
 <% include header %>
 
-
+<div class="row row-centered">
+<h2>Editar Pregunta</h2>
+</div>
+<br>
+<hr>
 <a class="col-md-3 col-md-offset-4" href="/docente/editarpreguntasalternativa/<%=asignatura.idasignatura%>/<%=asignatura.idparalelo%>">Editar Pregunta Alternativa</a>
 <br>
 <a class="col-md-3 col-md-offset-4" href="/docente/editarpreguntasdicotomica/<%=asignatura.idasignatura%>/<%=asignatura.idparalelo%>">Editar Pregunta Dicotomica</a>
 <br>
 <a class="col-md-3 col-md-offset-4" href="/docente/editarpreguntasescalalikert">Editar Pregunta Escalalikert</a>
 <br>
-<input class="btn btn-primary col-md-3 col-md-offset-4" type="button" value="Volver" onclick="goBack()">
-<script>
-	function goBack() {
-		window.history.back()
-	}
-</script>
+<hr>
+
+<%include volver%>
 <% include linkmenudocente %>
 <% include footer %>

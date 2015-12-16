@@ -28,12 +28,16 @@ module.exports = function(app) {
   router.post("/docente/crearpreguntaalternativa",multipart(),  auth_docente, function(request, response, next) {
     console.log(request.files);
     console.log("formulario",request.body);
+
     
 
-    queries.gestionar_pregunta.insertar_pregunta(request.body.nombrepregunta, request.body.pregunta ,'1',request.body.url_video,"", request.body.explicacion, request.body.idparalelo, request.body.idasignatura, request.session.name)
+    queries.gestionar_pregunta.insertar_pregunta(request.body.nombrepregunta, request.body.pregunta ,'1',request.body.url_video,request.files.imagen2.path, request.body.explicacion, request.body.idparalelo, request.body.idasignatura, request.session.name)
       .then(function(insertado_pregunta) {
         console.log("insertado pregunta:", insertado_pregunta);
-
+        asignatura={
+          idasignatura: request.body.idasignatura,
+          idparalelo: request.body.idparalelo,
+        }
         for(i in request.body.respuesta){ 
                   queries.gestionar_pregunta.insertar_respuesta(request.body.respuesta[i],insertado_pregunta.PM_ID,request.body.correctas[i])
                     .then(function(insertado_respuesta) {
@@ -41,17 +45,16 @@ module.exports = function(app) {
                   })
 
     }
-      
+      response.render('docentecrearpreguntaalternativasuccess',{
+      asignatura: asignatura
+
+    })
       })
       .catch(function(error) {
         console.log(error);
-        /*Como ven, acá hay dos redirect, pero no se ejecutan uno y después el otro, ya que cuando entra a un callback, el flujo de ejecución cambia
-         */
-        //response.redirect("crearpreguntaalternativa");
         next();
       })
-      
-     response.redirect("back");
+
     return;
       
   })

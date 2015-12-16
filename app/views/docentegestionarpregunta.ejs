@@ -1,7 +1,10 @@
 <% include header %>
 
-<h class="col-md-3 col-md-offset-4">Gestionar Pregunta</h>
+<div class="row row-centered">
+<h2>Gestionar Pregunta</h2>
+</div>
 <br>
+<hr>
 <a class="col-md-3 col-md-offset-4" href="/docente/crearpregunta/<%=asignatura.idasignatura%>/<%=asignatura.idparalelo%>">Crear Pregunta</a>
 <br>
 <a class="col-md-3 col-md-offset-4" href="/docente/editarpregunta/<%=asignatura.idasignatura%>/<%=asignatura.idparalelo%>">Editar Pregunta</a>
@@ -9,6 +12,7 @@
 
 <a class="col-md-3 col-md-offset-4" href="/docente/eliminarpregunta/<%=asignatura.idasignatura%>/<%=asignatura.idparalelo%>">Eliminar Pregunta</a>
 <br>
-
+<hr>
+<br>
 <% include linkmenudocente %>
 <% include footer %>
