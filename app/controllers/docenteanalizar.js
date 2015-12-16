@@ -27,8 +27,8 @@ module.exports = function (app) {
                 }
                 var mes = parseInt(preguntasres[i].PR_HORA_INICIO.getUTCMonth()) + 1;
                 pregfechas.push({
-                    fechavalue: preguntasres[i].PR_HORA_INICIO.getUTCFullYear() + "-" + mes + "-" + preguntasres[i].PR_HORA_INICIO.getUTCDate() + " " + preguntasres[i].PR_HORA_INICIO.getUTCHours() + ":" + preguntasres[i].PR_HORA_INICIO.getUTCMinutes() + ":" + segundos,
-                    fechainicioTotal: preguntasres[i].PR_HORA_INICIO
+                    fechavalue: preguntasres[i].PR_HORA_INICIO.getUTCFullYear() + "-" + mes + "-" + preguntasres[i].PR_HORA_INICIO.getUTCDate(),
+                    fechainicioTotal: preguntasres[i].PR_HORA_INICIO.getUTCFullYear() + "-" + mes + "-" + preguntasres[i].PR_HORA_INICIO.getUTCDate()
                 })
             }
             console.log(pregfechas);
@@ -42,7 +42,9 @@ module.exports = function (app) {
     
     router.get('/docente/analizar/seleccionarpregunta', auth_docente, function (request, response, next) {
         console.log(request.query);
-        analizar_docente.consultas.encontrar_preguntas_de_fecha(request.session.name, request.query.paralelo, request.query.asignatura, request.query.fecha).then(function (respreguntas) {
+        var hora_inicio = request.query.fecha + " 00:00:00"
+        var hora_fin = request.query.fecha + " 23:59:59"
+        analizar_docente.consultas.encontrar_preguntas_de_fecha(request.session.name, request.query.paralelo, request.query.asignatura, hora_inicio, hora_fin).then(function (respreguntas) {
             console.log(respreguntas);
             var preguntas = [];
             for (i in respreguntas) {
@@ -65,7 +67,7 @@ module.exports = function (app) {
             analizar_docente.consultas.encontrar_respuestas(request.query.pregunta).then(function (respuestasres){
 
             
-            console.log(respregunta);
+            console.log(respuestasres);
             switch (respregunta[0].PM_TIPO) {
                 case '1': console.log("alternativa");
                     mostrar_alternativaodicotomica(respregunta, respuestasres);

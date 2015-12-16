@@ -1,13 +1,17 @@
 <% include header %>
-
-
+<div class="row row-centered">
+<h2>Eliminar Pregunta</h2>
+</div>
+<br>
+<hr>
 <a class="col-md-3 col-md-offset-4" href="/docente/eliminarpreguntas/<%=asignatura.idasignatura%>/<%=asignatura.idparalelo%>/1">Eliminar Pregunta Alternativa</a>
 <br>
 <a class="col-md-3 col-md-offset-4" href="/docente/eliminarpreguntas/<%=asignatura.idasignatura%>/<%=asignatura.idparalelo%>/2">Eliminar Pregunta Dicotomica</a>
 <br>
 <a class="col-md-3 col-md-offset-4" href="/docente/eliminarpreguntas/3/<%=asignatura.idasignatura%>/<%=asignatura.idparalelo%>/3">Eliminar Pregunta Escalalikert</a>
 <br>
-<input class="btn btn-primary col-md-3 col-md-offset-4" type="button" value="Volver" onclick="goBack()">
+<hr>
 
+<% include volver %>
 <% include linkmenudocente %>
 <% include footer %>

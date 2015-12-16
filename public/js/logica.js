@@ -71,9 +71,34 @@ function correcta(){
     for(i in correcta){
         if(correcta[i].checked){
             document.getElementsByName("correctas")[i].value="1"
+        }else{
+            document.getElementsByName("correctas")[i].value="0"
+        }
         }
     }
-    }
+function formulario(f) { 
+    if (f.nombrepregunta.value   == '') { 
+        alert ('El nombre de la pregunta esta vacío');  
+        f.nombrepregunta.focus(); 
+        return false; 
+        } 
+    if (f.pregunta.value  == '') { 
+        alert ('La pregunta esta vacía '); 
+        f.pregunta.focus(); 
+        return false; 
+        }
+    if (f.explicacion.value  == '') { 
+        alert ('La explicación esta vacía'); 
+        f.pregunta.focus(); 
+        return false; 
+                } 
+    if(document.getElementsByName("respuesta").length<2){
+        alert ('Debe tener almenos 2 respuestas'); 
+        return false; 
+    } 
     
+    return true; 
+} 
+
 
 
