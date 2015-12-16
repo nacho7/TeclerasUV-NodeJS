@@ -5,31 +5,42 @@ var express = require('express'),
   db = require('./app/models');
 
 var app = express();
-
-require('./config/express')(app, config);
-app.use('/public', express.static(__dirname + '/public'));
-/*primero sincroniza la bd y luego arranca el servidor, de lo contrario podría causar malos ratos
-*/
-db.sequelize
-  .sync()
-  .then(function () {
-    app.listen(config.port);
-  }).catch(function (e) {
-    throw new Error(e);
-  });
-/*Esta función la creé para hacer los test, aunque ahora mism los tests fallan
-*/
 var createServer = {
   run: function() {
   db.sequelize
 	  .sync()
 	  .then(function () {
-	    app.listen(3000);
+            var io = require('socket.io').listen(app.listen(3000));
+            app.io = io;
+            
+            
+            mensajesasincronos(io);
+            
 	  }).catch(function (e) {
-	    throw new Error(e);
-  });
+	    throw new Error(e)
+  })
 },
   miapp: app
 };
+
+createServer.run();
+require('./config/express')(app, config);
+app.use('/public', express.static(__dirname + '/public'));
+
+function mensajesasincronos(io) {
+    
+    
+    
+    io.on('connection', function (socket) {
+        socket.on('join', function (data) {
+            console.log(data);
+            if (data.tipo == "estudiante") {
+                socket.join("estudiante:" + data.codigo);
+            } else if (data.tipo == "docente") {
+                socket.join("docente:" + data.codigo);
+            }
+        });
+    });
+}
 
 module.exports = createServer;

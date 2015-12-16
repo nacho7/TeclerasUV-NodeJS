@@ -27,8 +27,8 @@ module.exports = function (app) {
                 }
                 var mes = parseInt(preguntasres[i].PR_HORA_INICIO.getUTCMonth()) + 1;
                 pregfechas.push({
-                    fechavalue: preguntasres[i].PR_HORA_INICIO.getUTCFullYear() + "-" + mes + "-" + preguntasres[i].PR_HORA_INICIO.getUTCDate() + " " + preguntasres[i].PR_HORA_INICIO.getUTCHours() + ":" + preguntasres[i].PR_HORA_INICIO.getUTCMinutes() + ":" + segundos,
-                    fechainicioTotal: preguntasres[i].PR_HORA_INICIO
+                    fechavalue: preguntasres[i].PR_HORA_INICIO.getUTCFullYear() + "-" + mes + "-" + preguntasres[i].PR_HORA_INICIO.getUTCDate(),
+                    fechainicioTotal: preguntasres[i].PR_HORA_INICIO.getUTCFullYear() + "-" + mes + "-" + preguntasres[i].PR_HORA_INICIO.getUTCDate()
                 })
             }
             console.log(pregfechas);
@@ -42,7 +42,9 @@ module.exports = function (app) {
     
     router.get('/docente/analizar/seleccionarpregunta', auth_docente, function (request, response, next) {
         console.log(request.query);
-        analizar_docente.consultas.encontrar_preguntas_de_fecha(request.session.name, request.query.paralelo, request.query.asignatura, request.query.fecha).then(function (respreguntas) {
+        var hora_inicio = request.query.fecha + " 00:00:00"
+        var hora_fin = request.query.fecha + " 23:59:59"
+        analizar_docente.consultas.encontrar_preguntas_de_fecha(request.session.name, request.query.paralelo, request.query.asignatura, hora_inicio, hora_fin).then(function (respreguntas) {
             console.log(respreguntas);
             var preguntas = [];
             for (i in respreguntas) {
@@ -65,7 +67,7 @@ module.exports = function (app) {
             analizar_docente.consultas.encontrar_respuestas(request.query.pregunta).then(function (respuestasres){
 
             
-            console.log(respregunta);
+            console.log(respuestasres);
             switch (respregunta[0].PM_TIPO) {
                 case '1': console.log("alternativa");
                     mostrar_alternativaodicotomica(respregunta, respuestasres);
@@ -93,24 +95,86 @@ module.exports = function (app) {
                 }
                 respuestas.push(datospregunta[i].RES_TEXTO);
             }
+            var i, key, contador = 0, indice;
+            var respuestas_todas = respuestas.concat(Object.keys(cantidad_por_respuesta).filter(function (item) {
+                return respuestas.indexOf(item) < 0;
+            }));
+            for (j in Object.keys(cantidad_por_respuesta)) {
+                for (var i = respuestas_todas.length - 1; i >= 0; i--) {
+                    if (respuestas_todas[i] === Object.keys(cantidad_por_respuesta)[j]) {
+                        respuestas_todas.splice(i, 1);
+                    }
+                }
+            }
+            console.log(respuestas_todas);
+            for (i in respuestas_todas) {
+                cantidad_por_respuesta[respuestas_todas[i]] = 0;
+            }
+            console.log("respuestas: ", cantidad_por_respuesta);
+            var labelsbarra=[], databarra=[], barra;
+            for (i in Object.keys(cantidad_por_respuesta)) {
+                labelsbarra.push(Object.keys(cantidad_por_respuesta)[i]);
+                databarra.push(cantidad_por_respuesta[Object.keys(cantidad_por_respuesta)[i]]);
+            }
+            barra = {
+                
+                        labels: labelsbarra,
+                        datasets: [
+                                    {
+                                        label: "grafico de barra",
+                                        fillColor: "rgba(220,220,220,0.5)",
+                                        strokeColor: "rgba(220,220,220,0.8)",
+                                        highlightFill: "rgba(220,220,220,0.75)",
+                                        highlightStroke: "rgba(220,220,220,1)",
+                                        data: databarra
+                                    }
+                                ]
+                    
+            }
+            console.log(barra);
+            var correctapie, correctas = 0, incorrectas=0;
+            for (i in Object.keys(cantidad_por_respuesta)) {
+                if (Object.keys(cantidad_por_respuesta)[i] == correcta) {
+                    correctas= cantidad_por_respuesta[Object.keys(cantidad_por_respuesta)[i]];
+                }
+                else {
+                    incorrectas= incorrectas + cantidad_por_respuesta[Object.keys(cantidad_por_respuesta)[i]];
+                }
+            }
+            var piechart = [
+                {
+                    value: correctas,
+                    label: "correcta",
+                    color: "#46BFBD",
+                    highlight: "#5AD3D1"
+                },
+                {
+                    value: incorrectas,
+                    label: "incorrectas",
+                    color: "#F7464A",
+                    highlight: "#FF5A5E"
+                }
+            ]
             var pregunta = {
-    asignatura_nombre: datospregunta[0].ASI_NOMBRE,
-    asignatura_codigo: datospregunta[0].ASI_CODIGO,
-    paralelo: datospregunta[0].PAR_NUMERO,
-    nombre: datospregunta[0].PM_NOMBRE,
-    texto: datospregunta[0].TEXTO,
-    ruta_imagen: datospregunta[0].PM_RUTA_IMAGEN,
-    ruta_video: datospregunta[0].PM_RUTA_VIDEO,
-    explicacion: datospregunta[0].PM_EXPLICACION,
-    explicacion_imagen: datospregunta[0].PM_RUTA_IMAGEN_EXPLICACION,
-    pregunta_hora: datospregunta[0].PR_HORA_INICIO,
-    clase_hora: datospregunta[0].CLA_FECHA_HORA_INICIO,
+                asignatura_nombre: datospregunta[0].ASI_NOMBRE,
+                asignatura_codigo: datospregunta[0].ASI_CODIGO,
+                paralelo: datospregunta[0].PAR_NUMERO,
+                nombre: datospregunta[0].PM_NOMBRE,
+                texto: datospregunta[0].PM_TEXTO,
+                ruta_imagen: datospregunta[0].PM_RUTA_IMAGEN,
+                ruta_video: datospregunta[0].PM_RUTA_VIDEO,
+                explicacion: datospregunta[0].PM_EXPLICACION,
+                explicacion_imagen: datospregunta[0].PM_RUTA_IMAGEN_EXPLICACION,
+                pregunta_hora: datospregunta[0].PR_HORA_INICIO,
+                clase_hora: datospregunta[0].CLA_FECHA_HORA_INICIO,
                 respuestas: respuestas,
                 respuesta_correcta: correcta,
-    cantidad_por_respuesta: cantidad_por_respuesta
+                cantidad_por_respuesta: cantidad_por_respuesta
             }
             response.render('docenteanalizarverrespuestasalternativaodictomica', {
-            pregunta: pregunta
+                pregunta: pregunta,
+                barra: JSON.stringify(barra),
+                piechart: JSON.stringify(piechart)
             });
         }
         function mostrar_likert(datospregunta, datosrespondidas){

@@ -1,0 +1,55 @@
+<% include header %>est_
+<!-- pregunta realizada -->
+<p><b>Pregunta realizada</b></p>
+<p>PR_HORA_INICIO: <%= hora_inicio %></p>
+<p>PR_HORA_FIN: <%= hora_fin %></p>
+<p>PR_TIEMPO_MAX: <%= tiempo_max %></p>
+
+<!-- pregunta maestra -->
+<p><b>Pregunta maestra</b></p>
+<p>PM_NOMBRE: <%= nombre %></p>
+<p>PM_TIPO: <%= tipo %></p>
+<p>PM_TEXTO: <%= texto %></p>
+
+<% if(tipo=='2'){ %>
+<form action="/estudiante/contestapregunta" method="get">
+  <% for(i=0;i<respuestas.length;i++){ %>
+    <input type="radio" name="res_id" value="<%= respuestas[i].RES_ID %>"><%= respuestas[i].RES_TEXTO %><br>
+  <% } %>
+  <input type="hidden" name="tipo" value="dicotomica">
+  <input type="hidden" name="pr_id" value="<%= tv_pr_id %>">
+  <input type="hidden" name="est_id" value="<%= est_id %>">
+  <input type="submit" value="Submit">
+</form>
+<% } %>
+<% if(tipo=='3'){ %>
+<form action="/estudiante/contestapregunta" method="get">
+	<input type="hidden" name="tipo" value="likert">
+  <input type='text' name='res_id'>
+  <input type="hidden" name="pr_id" value="<%= tv_pr_id %>">
+  <input type="hidden" name="est_id" value="<%= est_id %>">
+  <input type="submit" value="Submit">
+</form>
+<% } %>
+<% if(tipo=='1'){ %>
+<form action="/estudiante/contestapregunta" method="get">
+  <% for(i=0;i<respuestas.length;i++){ %>
+    <input type="checkbox" name="res_id[]" value="<%= respuestas[i].RES_ID %>"><%= respuestas[i].RES_TEXTO %><br>
+  <% } %>
+  <input type="hidden" name="tipo" value="alternativa">
+  <input type="hidden" name="pr_id" value="<%= tv_pr_id %>">
+  <input type="hidden" name="est_id" value="<%= est_id %>">
+  <input type="submit" value="Submit">
+</form>
+<% } %>
+
+<script type="text/javascript">
+	var socket = io.connect('http://localhost:3000');
+    socket.emit('join', {codigo: "<%= codigo %>", tipo: "estudiante"});
+	socket.on("pregunta cerrada", function(data) {
+        console.log(data);
+        window.location = '/estudiante/ingresado'+"?password=<%=codigo%>";
+    });
+
+</script>
+<% include footer %>

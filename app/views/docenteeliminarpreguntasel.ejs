@@ -1,4 +1,12 @@
 <% include header %>
-<input class="btn btn-primary col-md-3 col-md-offset-4" type="button" value="Volver" onclick="goBack()">
-<% include linkmenudocente %>
+<div class="row row-centered">
+<h2>La pregunta se ha eliminado exitosamente.</h2>
+
+  	<br>
+  	<hr>
+  	<br>
+ 	<a class="btn btn-danger"  href="/docente/eliminarpreguntas/<%=datos.idasignatura%>/<%=datos.idparalelo%>/<%=datos.tipo%>">Eliminar otra pregunta</a>
+    <a class="btn btn-danger" href="/docente/menu">Volver al menú</a>
+
+</div>
 <% include footer %>

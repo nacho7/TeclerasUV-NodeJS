@@ -30,7 +30,7 @@ module.exports = function(app) {
         }
     console.log("preguntas: ", preguntas)
     response.render('docenteditarpreguntasalternativa', {
-      preguntas: preguntas
+    preguntas: preguntas
     })
     })
   })

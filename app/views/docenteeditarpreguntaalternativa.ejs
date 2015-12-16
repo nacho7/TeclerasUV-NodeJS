@@ -1,13 +1,13 @@
 <% include header %>
 		<div class="row row-centered">
 			<div class="col-sm-8 col-centered">
-				<form action="/docente/editarpreguntaalternativa" method="post" enctype="multipart/form-data">
+				<form action="/docente/editarpreguntaalternativa" method="post" enctype="multipart/form-data" onsubmit="return formulario(this)">
 					<label for="">Nombre Pregunta</label><br/>
 					<input id="nombrepregunta" name="nombrepregunta" type="text" size="40" value="<%=pregunta.nombre%>"><br/>
 					<label for="">Pregunta:</label><br/>
 					<input id="pregunta" type="text" name="pregunta" value="<%=pregunta.pregunta%>"size="40"><br/>
 					<label for="">Imagen</label><br/>
-					<input type="file" id="comprobarImagenes" name="imagen2" onchange="checkExt()"><br/>
+					<input type="file" id="comprobarImagenes" name="imagen2" value="<%=pregunta.url_imagen%>" onchange="checkExt()"><br/>
 					
 					<label for="">URL Video</label><br/>
 					<input id="url_video" type="text" name="url_video"  value="<%=pregunta.url_video%>" size="40" onchange="ValidarURL()"><br/>
@@ -21,14 +21,16 @@
 							<td id="3">Seleccionar</td>
 						</tr>
 						<%for(i in respuestas){%>
+							<input type="hidden" name="correctas" value="0">
 							<tr>
 								<td><input type="text" name="respuesta" value="<%=respuestas[i].respuesta%>"></td>
 								<%if(respuestas[i].correcta=="1"){%>
-								<td><input type="radio" name="rad" value="<%=respuestas[i].respuesta%>" checked></td><%}else{%>
-									<td><input type="radio" name="rad" value="<%=respuestas[i].respuesta%>"></td>
+								<td><input type="radio" name="rad"  checked></td><%}else{%>
+									<td><input type="radio" name="rad"</td>
 
 								<%}%>
 								<td><input type="checkbox" name="respuesta" value="<%=respuestas[i].respuesta%>"></td>
+							
 						<%}%>
 					</table>
 					<input class="btn btn-default" type="button" value="Agregar" onclick="agregar()">
@@ -36,7 +38,7 @@
 					<label id="demo"></label><br/>
 					<label for="">Explicacion respuesta correcta:</label><br/>
 					<textarea name="explicacion" id="explicacion" cols="40" rows="5"><%=pregunta.explicacion%></textarea><br/>
-					<input class="btn btn-default" id="CrearPregunta" onclick="correcta()" type="submit" value="Crear Pregunta">
+					<input class="btn btn-default" id="Editarpregunta" onclick="correcta()" type="submit" value="Editar Pregunta">
 					<input class="btn btn-default" type="button" value="Volver" onclick="goBack()">
 					<input type="hidden" name="idpregunta" value="<%=asignatura.idpregunta%>">
 				</form>	
