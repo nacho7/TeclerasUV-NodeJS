@@ -1,7 +1,9 @@
 var express = require('express'),
   router = express.Router(),
   auth_docente = require("../middleware/auth_docente.js"),
-  queries = require('../queries/index.js');
+  queries = require('../queries/index.js'),
+  path = require('path'),
+  fs = require('fs'),
   multipart = require('connect-multiparty');
 
 module.exports = function(app) {
@@ -53,8 +55,21 @@ module.exports = function(app) {
     asignatura={
           idasignatura: request.body.idasignatura,
           idparalelo: request.body.idparalelo
-        }  
-    queries.gestionar_pregunta.actualizar_pregunta(request.body.idpregunta, request.body.nombrepregunta, request.body.pregunta,request.body.url_video,request.files.imagen2.path, request.body.explicacion)
+        } 
+    if(request.files.imagen2.originalFilename==''){
+      var nombre_nuevo=null
+    }else{
+    var nombre_nuevo = request.files.imagen2.originalFilename;
+
+    /*la foto en este caso se guarda en archivos temporales*/
+    var ruta_archivo= request.files.imagen2.path;
+
+    var nueva_ruta = "./public/preguntas/imagenes/" + nombre_nuevo;
+
+    /*copia el archivo desde tmp hasta nueva ruta*/
+    fs.createReadStream(ruta_archivo).pipe(fs.createWriteStream(nueva_ruta));
+    }
+    queries.gestionar_pregunta.actualizar_pregunta(request.body.idpregunta, request.body.nombrepregunta, request.body.pregunta,request.body.url_video,nombre_nuevo, request.body.explicacion)
       .then(function(actualizar_pregunta) {
         console.log("actualizado pregunta:", actualizar_pregunta)
       queries.gestionar_pregunta.eliminar_respuesta(request.body.idpregunta).then(function(eliminar_respuesta) {

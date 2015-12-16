@@ -85,7 +85,7 @@ module.exports = function(app) {
       if(info_clase.length>0){
         info = info_clase[0].CLA_PASSWORD;
         var id_clase = info_clase[0].CLA_ID;
-    queries.contestapregunta.insertar_pregunta_respondida(request.query.pr_id, request.query.est_id,request.query.res_id,"2").then(function(tv_pregunta_respondida){
+    queries.contestapregunta.insertar_pregunta_respondida(request.query.pr_id, request.query.est_id,request.query.res_id,null).then(function(tv_pregunta_respondida){
       console.log(tv_pregunta_respondida);
       app.io.sockets.to('docente:' + request.session.password).emit('actualizar pagina', {});
     queries.get_tv_clase_password.buscar_pregunta_realizada(id_clase).then(function (preguntarealizada) {

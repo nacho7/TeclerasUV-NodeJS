@@ -28,10 +28,21 @@ module.exports = function(app) {
   router.post("/docente/crearpreguntaalternativa",multipart(),  auth_docente, function(request, response, next) {
     console.log(request.files);
     console.log("formulario",request.body);
+    if(request.files.imagen2.originalFilename==''){
+      var nombre_nuevo=null
+    }else{
+    var nombre_nuevo = request.files.imagen2.originalFilename;
 
-    
+    /*la foto en este caso se guarda en archivos temporales*/
+    var ruta_archivo= request.files.imagen2.path;
 
-    queries.gestionar_pregunta.insertar_pregunta(request.body.nombrepregunta, request.body.pregunta ,'1',request.body.url_video,request.files.imagen2.path, request.body.explicacion, request.body.idparalelo, request.body.idasignatura, request.session.name)
+    var nueva_ruta = "./public/preguntas/imagenes/" + nombre_nuevo;
+
+    /*copia el archivo desde tmp hasta nueva ruta*/
+    fs.createReadStream(ruta_archivo).pipe(fs.createWriteStream(nueva_ruta));
+    }
+
+    queries.gestionar_pregunta.insertar_pregunta(request.body.nombrepregunta, request.body.pregunta ,'1',request.body.url_video,nombre_nuevo, request.body.explicacion, request.body.idparalelo, request.body.idasignatura, request.session.name)
       .then(function(insertado_pregunta) {
         console.log("insertado pregunta:", insertado_pregunta);
         asignatura={
